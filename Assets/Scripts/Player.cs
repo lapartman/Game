@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     [SerializeField] float runSpeed;
     [SerializeField] float jumpForce;
 
+    bool isJumping;
+    int jumpCount;
+
     void Start()
     {
         playerBody = GetComponent<Rigidbody2D>();
@@ -38,6 +41,7 @@ public class Player : MonoBehaviour
 
         bool isPlayerMoving = Mathf.Abs(playerBody.velocity.x) > Mathf.Epsilon;
         playerAnimator.SetBool("isRunning", isPlayerMoving);
+        isJumping = false;
     }
 
     private void Flip()
@@ -54,16 +58,22 @@ public class Player : MonoBehaviour
 
     private void IsPlayerTouchingGround()
     {
-        if (playerBody.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (!isJumping)
         {
-            playerAnimator.SetBool("isJumping", false);
+            if (playerBody.IsTouchingLayers(LayerMask.GetMask("Ground")))
+            {
+                jumpCount = 1;
+                playerAnimator.SetBool("isJumping", false);
+            }
         }
     }
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount > 0)
         {
+            isJumping = true;
+            jumpCount--;
             Vector2 playerJumpVelocity = new Vector2(0f, jumpForce);
             playerBody.velocity += playerJumpVelocity;
             playerAnimator.SetBool("isJumping", true);
