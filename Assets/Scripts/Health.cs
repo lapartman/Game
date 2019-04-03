@@ -8,11 +8,20 @@ public class Health : MonoBehaviour
 
     void Start()
     {
-        
+
     }
-    
+
     void Update()
     {
-        
+
+    }
+
+    public void DealDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
