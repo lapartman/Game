@@ -21,15 +21,11 @@ public class Player : MonoBehaviour
         playerSprite = GetComponentInChildren<SpriteRenderer>();
     }
 
-    void FixedUpdate()
-    {
-        Jump();
-        Run();
-    }
-
     private void Update()
     {
         Flip();
+        Run();
+        Jump();
         IsPlayerTouchingGround();
     }
 
