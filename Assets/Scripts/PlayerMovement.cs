@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    Rigidbody2D playerBody;
-    Animator playerAnimator;
-    SpriteRenderer playerSprite;
+    private Rigidbody2D playerBody;
+    private Animator playerAnimator;
+    private SpriteRenderer playerSprite;
+    private Attack attack;
 
     [SerializeField] float runSpeed;
     [SerializeField] float jumpForce;
 
-    bool isJumping;
-    int jumpCount;
+    private int jumpCount;
+    private bool playerFlipped;
 
     void Start()
     {
         playerBody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         playerSprite = GetComponentInChildren<SpriteRenderer>();
+        attack = GetComponent<Attack>();
     }
 
     private void Update()
@@ -37,7 +39,6 @@ public class Player : MonoBehaviour
 
         bool isPlayerMoving = Mathf.Abs(playerBody.velocity.x) > Mathf.Epsilon;
         playerAnimator.SetBool("isRunning", isPlayerMoving);
-        isJumping = false;
     }
 
     private void Flip()
@@ -45,22 +46,21 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             playerSprite.flipX = true;
+            attack.SetSlashPosition(false);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             playerSprite.flipX = false;
+            attack.SetSlashPosition(true);
         }
     }
 
     private void IsPlayerTouchingGround()
     {
-        if (!isJumping)
+        if (playerBody.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerBody.velocity.y < Mathf.Epsilon)
         {
-            if (playerBody.IsTouchingLayers(LayerMask.GetMask("Ground")))
-            {
-                jumpCount = 1;
-                playerAnimator.SetBool("isJumping", false);
-            }
+            jumpCount = 2;
+            playerAnimator.SetBool("isJumping", false);
         }
     }
 
@@ -68,7 +68,6 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount > 0)
         {
-            isJumping = true;
             jumpCount--;
             Vector2 playerJumpVelocity = new Vector2(0f, jumpForce);
             playerBody.velocity += playerJumpVelocity;
