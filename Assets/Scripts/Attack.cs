@@ -29,16 +29,14 @@ public class Attack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) && attackTimer <= 0)
         {
             playerAnimator.SetTrigger("slash");
-            Collider2D[] enemies = Physics2D.OverlapCircleAll(slashPosition.position, attackRadius, enemyMask);
-            foreach (Collider2D enemy in enemies)
-            {
-                if (enemy.GetComponent<Enemy>())
-                {
-                    enemy.GetComponent<Health>().DealDamage(damage);
-                }
-            }
+            Collider2D enemyCollider = Physics2D.OverlapCircle(slashPosition.position, attackRadius, enemyMask);
             attackTimer = timeBetweenAttacks;
-
+            if (enemyCollider == null) { return; }
+            if (enemyCollider.GetComponent<Enemy>())
+            {
+                enemyCollider.GetComponent<Health>().DealDamage(damage);
+                enemyCollider.GetComponent<Animator>().SetTrigger("hurt");
+            }
         }
         else
         {
