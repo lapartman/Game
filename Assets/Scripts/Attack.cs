@@ -5,6 +5,7 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     private Animator playerAnimator;
+    private PlayerMovement player;
     [SerializeField] LayerMask enemyMask;
 
     [SerializeField] int damage;
@@ -17,6 +18,7 @@ public class Attack : MonoBehaviour
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
+        player = GetComponent<PlayerMovement>();
     }
 
     void Update()
@@ -26,7 +28,7 @@ public class Attack : MonoBehaviour
 
     private void Slash()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && attackTimer <= 0)
+        if (SlashCondition())
         {
             playerAnimator.SetTrigger("slash");
             Collider2D enemyCollider = Physics2D.OverlapCircle(slashPosition.position, attackRadius, enemyMask);
@@ -42,6 +44,11 @@ public class Attack : MonoBehaviour
         {
             attackTimer -= Time.deltaTime;
         }
+    }
+
+    private bool SlashCondition()
+    {
+        return Input.GetKeyDown(KeyCode.Mouse0) && attackTimer <= 0 && player.IsPlayerTouchingGround();
     }
 
     public void SetSlashPosition(bool facingRight)

@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpForce;
 
     private int jumpCount;
-    private bool playerFlipped;
 
     void Start()
     {
@@ -55,13 +54,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void IsPlayerTouchingGround()
+    public bool IsPlayerTouchingGround()
     {
         if (playerBody.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerBody.velocity.y < Mathf.Epsilon)
         {
             jumpCount = 2;
             playerAnimator.SetBool("isJumping", false);
+            return true;
         }
+        return false;
     }
 
     private void Jump()
