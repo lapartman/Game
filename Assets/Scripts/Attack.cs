@@ -6,6 +6,7 @@ public class Attack : MonoBehaviour
 {
     private Animator playerAnimator;
     private PlayerMovement player;
+
     [SerializeField] LayerMask enemyMask;
 
     [SerializeField] int damage;

@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpForce;
 
     private int jumpCount;
+    bool playerHasKey = false;
 
     void Start()
     {
@@ -22,12 +23,13 @@ public class PlayerMovement : MonoBehaviour
         attack = GetComponent<Attack>();
     }
 
-    private void Update()
+    void Update()
     {
         Flip();
         Run();
         Jump();
         IsPlayerTouchingGround();
+        PlayerGotKey();
     }
 
     private void Run()
@@ -74,5 +76,18 @@ public class PlayerMovement : MonoBehaviour
             playerBody.velocity += playerJumpVelocity;
             playerAnimator.SetBool("isJumping", true);
         }
+    }
+
+    private void PlayerGotKey()
+    {
+        if (FindObjectOfType<Key>().PlayerHasKey())
+        {
+            playerHasKey = true;
+        }
+    }
+
+    public bool PlayerOwnsKey()
+    {
+        return playerHasKey;
     }
 }
