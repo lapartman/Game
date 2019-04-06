@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour
 {
-    Rigidbody2D chestBody;
-    Animator chestAnimator;
+    private Rigidbody2D chestBody;
+    private Animator chestAnimator;
 
     void Start()
     {
@@ -16,13 +16,11 @@ public class Chest : MonoBehaviour
     void Update()
     {
         OpenSesame();
-        Debug.Log("player has key" + FindObjectOfType<PlayerMovement>().PlayerOwnsKey());
-        Debug.Log("is touching player" + chestBody.IsTouchingLayers(LayerMask.GetMask("Player")));
     }
 
     public void OpenSesame()
     {
-        if (FindObjectOfType<PlayerMovement>().PlayerOwnsKey() && chestBody.IsTouchingLayers(LayerMask.GetMask("Player")))
+        if (FindObjectOfType<PlayerMovement>().PlayerHasKey && chestBody.IsTouchingLayers(LayerMask.GetMask("Player")))
         {
             chestAnimator.SetTrigger("openChest");
         }

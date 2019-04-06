@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    Rigidbody2D keyBody;
-    SpriteRenderer spriteRenderer;
-    private bool playerHaskey = false;
+    private Rigidbody2D keyBody;
+    private SpriteRenderer spriteRenderer;
+    public bool PlayerHasKey { get; private set; }
 
     void Start()
     {
@@ -16,22 +16,16 @@ public class Key : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(0f, 180f * Time.deltaTime * 0.5f, 0f);
-        IsPlayerTouchingKey();
-        Debug.Log(playerHaskey);
+        transform.Rotate(0f, 180f * 0.5f * Time.deltaTime, 0f);
+        PlayerHasTouchedKey();
     }
 
-    private void IsPlayerTouchingKey()
+    private void PlayerHasTouchedKey()
     {
         if (keyBody.IsTouchingLayers(LayerMask.GetMask("Player")))
         {
-            playerHaskey = true;
+            PlayerHasKey = true;
             Destroy(spriteRenderer);
         }
-    }
-
-    public bool PlayerHasKey()
-    {
-        return playerHaskey;
     }
 }

@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpForce;
 
     private int jumpCount;
-    bool playerHasKey = false;
+    public bool PlayerHasKey { get; private set; } 
 
     void Start()
     {
@@ -80,14 +80,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void PlayerGotKey()
     {
-        if (FindObjectOfType<Key>().PlayerHasKey())
+        if (FindObjectOfType<Key>().PlayerHasKey)
         {
-            playerHasKey = true;
+            PlayerHasKey = true;
         }
-    }
-
-    public bool PlayerOwnsKey()
-    {
-        return playerHasKey;
     }
 }

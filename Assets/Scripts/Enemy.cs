@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Animator animator;
+    private Health health;
+
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
+        health = GetComponent<Health>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        TriggerDeath();
+    }
+
+    private void TriggerDeath()
+    {
+        if (health.IsDead())
+        {
+            animator.SetTrigger("death");
+            Destroy(gameObject, 2);
+        }
     }
 }

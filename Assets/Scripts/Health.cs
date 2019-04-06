@@ -19,9 +19,10 @@ public class Health : MonoBehaviour
     public void DealDamage(int damage)
     {
         health -= damage;
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
+    }
+
+    public bool IsDead()
+    {
+        return health <= 0;
     }
 }
