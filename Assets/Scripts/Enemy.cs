@@ -6,11 +6,15 @@ public class Enemy : MonoBehaviour
 {
     private Animator animator;
     private Health health;
+    private Rigidbody2D enemyBody;
+    private CapsuleCollider2D enemyCollider;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
+        enemyBody = GetComponent<Rigidbody2D>();
+        enemyCollider = GetComponent<CapsuleCollider2D>();
     }
 
     void Update()
@@ -23,7 +27,9 @@ public class Enemy : MonoBehaviour
         if (health.IsDead())
         {
             animator.SetTrigger("death");
-            Destroy(gameObject, 2);
+            enemyBody.bodyType = RigidbodyType2D.Static;
+            Destroy(enemyCollider);
+            Destroy(gameObject, 1.5f);
         }
     }
 }

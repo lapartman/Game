@@ -123,7 +123,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   damage: 1
-  timeBetweenAttacks: 1
+  timeBetweenAttacks: 0.75
   attackRadius: 0.5
   slashPosition: {fileID: 8493550332299505852}
 --- !u!1 &2230730198375681902
