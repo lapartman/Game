@@ -11,6 +11,7 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody2D characterBody;
     private CapsuleCollider2D characterCollider;
     private SpriteRenderer characterSprite;
+    private EnemyAttack attack;
 
     [SerializeField] float runSpeed;
     [SerializeField] float playerDetectionRange;
@@ -23,16 +24,16 @@ public class EnemyMovement : MonoBehaviour
         characterCollider = GetComponent<CapsuleCollider2D>();
         player = FindObjectOfType<PlayerMovement>();
         characterSprite = GetComponentInChildren<SpriteRenderer>();
+        attack = GetComponent<EnemyAttack>();
     }
 
     void Update()
     {
         TriggerDeath();
-        if (!health.IsDead())
-        {
-            PlayerInRange();
-            Flip();
-        }
+        
+        if (health.IsDead()) { return; }
+        PlayerInRange();
+        Flip();
     }
 
     private void PlayerInRange()
@@ -53,10 +54,12 @@ public class EnemyMovement : MonoBehaviour
         if (player.transform.position.x < characterBody.transform.position.x)
         {
             characterSprite.flipX = true;
+            attack.SetSlashPosition(false);
         }
         else if (player.transform.position.x > characterBody.transform.position.x)
         {
             characterSprite.flipX = false;
+            attack.SetSlashPosition(true);
         }
     }
 

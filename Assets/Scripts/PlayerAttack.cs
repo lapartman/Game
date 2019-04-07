@@ -2,36 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : Attack
 {
-    private Animator playerAnimator;
-    private PlayerMovement player;
-
-    [SerializeField] LayerMask enemyMask;
-
-    [SerializeField] int damage;
-    [SerializeField] float timeBetweenAttacks;
-    [SerializeField] float attackRadius;
-    [SerializeField] Transform slashPosition;
-
-    private float attackTimer;
-
-    void Start()
+    private void Start()
     {
-        playerAnimator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         player = GetComponent<PlayerMovement>();
     }
 
-    void Update()
+    private void Update()
     {
         Slash();
     }
 
-    private void Slash()
+    protected override void Slash()
     {
         if (SlashCondition())
         {
-            playerAnimator.SetTrigger("slash");
+            animator.SetTrigger("slash");
             Collider2D enemyCollider = Physics2D.OverlapCircle(slashPosition.position, attackRadius, enemyMask);
             attackTimer = timeBetweenAttacks;
             if (enemyCollider == null) { return; }
@@ -47,14 +35,8 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private bool SlashCondition()
+    protected override bool SlashCondition()
     {
         return Input.GetKeyDown(KeyCode.Mouse0) && attackTimer <= 0 && player.IsPlayerTouchingGround();
-    }
-
-    public void SetSlashPosition(bool facingRight)
-    {
-        float offset = facingRight ? 1.25f : -1.25f;
-        slashPosition.position = new Vector2(transform.position.x + offset, transform.position.y);
     }
 }

@@ -170,6 +170,7 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 512
+  attackRange: 2
 --- !u!1 &4089325860491986942
 GameObject:
   m_ObjectHideFlags: 0

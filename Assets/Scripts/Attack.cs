@@ -4,12 +4,12 @@ using UnityEngine;
 
 public abstract class Attack : MonoBehaviour
 {
-    [SerializeField] float timeBetweenAttacks;
-    [SerializeField] float attackRadius;
-    [SerializeField] int damage;
+    public float timeBetweenAttacks;
+    public float attackRadius;
+    public int damage;
 
-    [SerializeField] Transform slashPosition;
-    [SerializeField] LayerMask enemyMask;
+    public Transform slashPosition;
+    public LayerMask enemyMask;
 
     protected Animator animator;
     protected PlayerMovement player;
@@ -18,16 +18,10 @@ public abstract class Attack : MonoBehaviour
 
     protected abstract void Slash();
     protected abstract bool SlashCondition();
-    protected abstract void SetSlashPosition(bool facingRight);
 
-    protected void Start()
+    public virtual void SetSlashPosition(bool facingRight)
     {
-        animator = GetComponent<Animator>();
-        player = GetComponent<PlayerMovement>();
-    }
-
-    protected void Update()
-    {
-        Slash();
+        float offset = facingRight ? 1.25f : -1.25f;
+        slashPosition.position = new Vector2(transform.position.x + offset, transform.position.y);
     }
 }

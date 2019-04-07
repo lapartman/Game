@@ -4,19 +4,45 @@ using UnityEngine;
 
 public class EnemyAttack : Attack
 {
+    [SerializeField] float attackRange;
+    Health health;
 
-    protected override void SetSlashPosition(bool facingRight)
+    private void Start()
     {
-        throw new System.NotImplementedException();
+        player = FindObjectOfType<PlayerMovement>();
+        animator = GetComponent<Animator>();
+        health = GetComponent<Health>();
+    }
+
+    private void Update()
+    {
+        if (health.IsDead()) { return; }
+        Slash();
+        Debug.Log(Vector2.Distance(transform.position, player.transform.position));
     }
 
     protected override void Slash()
     {
-        throw new System.NotImplementedException();
+        if (SlashCondition())
+        {
+            animator.SetTrigger("slash");
+            Collider2D enemyCollider = Physics2D.OverlapCircle(slashPosition.position, attackRadius, enemyMask);
+            attackTimer = timeBetweenAttacks;
+            if (enemyCollider == null) { return; }
+            if (enemyCollider.GetComponent<PlayerMovement>())
+            {
+                enemyCollider.GetComponent<Health>().DealDamage(damage);
+                enemyCollider.GetComponent<Animator>().SetTrigger("hurt");
+            }
+        }
+        else
+        {
+            attackTimer -= Time.deltaTime;
+        }
     }
 
     protected override bool SlashCondition()
     {
-        throw new System.NotImplementedException();
+        return attackTimer <= 0 && player.IsPlayerTouchingGround() && Vector2.Distance(transform.position, player.transform.position) <= attackRange;
     }
 }

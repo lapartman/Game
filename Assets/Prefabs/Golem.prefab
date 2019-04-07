@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8028309930977934891}
   - component: {fileID: 6273853}
   - component: {fileID: 4426603269644183848}
+  - component: {fileID: 1475895233764228293}
   m_Layer: 9
   m_Name: Golem
   m_TagString: Untagged
@@ -119,13 +120,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927d842344d01924ead8de55f55d74dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeBetweenAttacks: 0.75
+  attackRadius: 0.5
+  damage: 1
+  slashPosition: {fileID: 8493550332299505852}
   enemyMask:
     serializedVersion: 2
     m_Bits: 1024
-  damage: 1
-  timeBetweenAttacks: 0.75
-  attackRadius: 0.5
-  slashPosition: {fileID: 8493550332299505852}
+--- !u!114 &1475895233764228293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2230730198013717730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d67beb3431c6b449608b44d675015d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
 --- !u!1 &2230730198375681902
 GameObject:
   m_ObjectHideFlags: 0
