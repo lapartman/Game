@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyAttack : Attack
 {
-    private Animator enemyAnimator;
 
-    void Start()
+    protected override void SetSlashPosition(bool facingRight)
     {
-        enemyAnimator = GetComponent<Animator>();
+        throw new System.NotImplementedException();
     }
-    
-    void Update()
+
+    protected override void Slash()
     {
-        
+        throw new System.NotImplementedException();
+    }
+
+    protected override bool SlashCondition()
+    {
+        throw new System.NotImplementedException();
     }
 }

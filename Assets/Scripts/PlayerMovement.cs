@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpForce;
 
     private int jumpCount;
-    public bool PlayerHasKey { get; private set; } 
+    public bool PlayerHasKey { get; private set; } = false;
 
     void Start()
     {

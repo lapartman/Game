@@ -6,7 +6,7 @@ public class Key : MonoBehaviour
 {
     private Rigidbody2D keyBody;
     private SpriteRenderer spriteRenderer;
-    public bool PlayerHasKey { get; private set; }
+    public bool PlayerHasKey { get; private set; } = false;
 
     void Start()
     {

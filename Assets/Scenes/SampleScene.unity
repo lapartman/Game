@@ -1313,24 +1313,6 @@ TilemapCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
---- !u!1 &2093769449 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4089325859786596702, guid: b048478a96d17594987c87cf0872a778,
-    type: 3}
-  m_PrefabInstance: {fileID: 4089325859683463666}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2093769450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2093769449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 702352d5674d77345a3550a23145e6b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2230730198008436698
 PrefabInstance:
   m_ObjectHideFlags: 0
