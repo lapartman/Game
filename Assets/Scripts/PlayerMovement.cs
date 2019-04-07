@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D playerBody;
     private Animator playerAnimator;
     private SpriteRenderer playerSprite;
-    private Attack attack;
+    private PlayerAttack attack;
 
     [SerializeField] float runSpeed;
     [SerializeField] float jumpForce;
@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
         playerBody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         playerSprite = GetComponentInChildren<SpriteRenderer>();
-        attack = GetComponent<Attack>();
+        attack = GetComponent<PlayerAttack>();
     }
 
     void Update()
