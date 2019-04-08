@@ -8,13 +8,13 @@ public class Key : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public bool PlayerHasKey { get; private set; } = false;
 
-    void Start()
+    private void Start()
     {
         keyBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void Update()
+    private void Update()
     {
         transform.Rotate(0f, 180f * 0.5f * Time.deltaTime, 0f);
         PlayerHasTouchedKey();

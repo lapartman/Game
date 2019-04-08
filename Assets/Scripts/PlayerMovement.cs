@@ -2,66 +2,65 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Movement
 {
-    private Rigidbody2D playerBody;
-    private Animator playerAnimator;
-    private SpriteRenderer playerSprite;
     private PlayerAttack attack;
 
-    [SerializeField] float runSpeed;
     [SerializeField] float jumpForce;
 
     private int jumpCount;
     public bool PlayerHasKey { get; private set; } = false;
 
-    void Start()
+    private void Start()
     {
-        playerBody = GetComponent<Rigidbody2D>();
-        playerAnimator = GetComponent<Animator>();
-        playerSprite = GetComponentInChildren<SpriteRenderer>();
+        body = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         attack = GetComponent<PlayerAttack>();
+        health = GetComponent<Health>();
     }
 
-    void Update()
+    private void Update()
     {
+        PlayerGotKey();
+        TriggerDeath();
+        if (health.IsDead()) { return; }
         Flip();
-        Run();
+        Move();
         Jump();
         IsPlayerTouchingGround();
-        PlayerGotKey();
     }
 
-    private void Run()
+    protected override void Move()
     {
         float horizontalAxis = Input.GetAxis("Horizontal");
-        Vector2 playerMovementVelocity = new Vector2(horizontalAxis * runSpeed, playerBody.velocity.y);
-        playerBody.velocity = playerMovementVelocity;
+        Vector2 playerMovementVelocity = new Vector2(horizontalAxis * runSpeed, body.velocity.y);
+        body.velocity = playerMovementVelocity;
 
-        bool isPlayerMoving = Mathf.Abs(playerBody.velocity.x) > Mathf.Epsilon;
-        playerAnimator.SetBool("isRunning", isPlayerMoving);
+        bool isPlayerMoving = Mathf.Abs(body.velocity.x) > Mathf.Epsilon;
+        animator.SetBool("isRunning", isPlayerMoving);
     }
 
-    private void Flip()
+    protected override void Flip()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            playerSprite.flipX = true;
+            spriteRenderer.flipX = true;
             attack.SetSlashPosition(false);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            playerSprite.flipX = false;
+            spriteRenderer.flipX = false;
             attack.SetSlashPosition(true);
         }
     }
 
     public bool IsPlayerTouchingGround()
     {
-        if (playerBody.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerBody.velocity.y < Mathf.Epsilon)
+        if (body.IsTouchingLayers(LayerMask.GetMask("Ground")) && body.velocity.y < Mathf.Epsilon)
         {
             jumpCount = 2;
-            playerAnimator.SetBool("isJumping", false);
+            animator.SetBool("isJumping", false);
             return true;
         }
         return false;
@@ -73,8 +72,8 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpCount--;
             Vector2 playerJumpVelocity = new Vector2(0f, jumpForce);
-            playerBody.velocity += playerJumpVelocity;
-            playerAnimator.SetBool("isJumping", true);
+            body.velocity += playerJumpVelocity;
+            animator.SetBool("isJumping", true);
         }
     }
 
@@ -83,6 +82,14 @@ public class PlayerMovement : MonoBehaviour
         if (FindObjectOfType<Key>().PlayerHasKey)
         {
             PlayerHasKey = true;
+        }
+    }
+
+    protected override void TriggerDeath()
+    {
+        if (health.IsDead())
+        {
+            animator.SetTrigger("death");
         }
     }
 }

@@ -164,13 +164,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenAttacks: 1
-  attackRadius: 0.5
+  attackRadius: 0.3
   damage: 1
   slashPosition: {fileID: 1455921106456939192}
   enemyMask:
     serializedVersion: 2
     m_Bits: 512
-  attackRange: 2
+  attackRange: 1.5
 --- !u!1 &4089325860491986942
 GameObject:
   m_ObjectHideFlags: 0

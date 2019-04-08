@@ -7,13 +7,13 @@ public class Chest : MonoBehaviour
     private Rigidbody2D chestBody;
     private Animator chestAnimator;
 
-    void Start()
+    private void Start()
     {
         chestBody = GetComponent<Rigidbody2D>();
         chestAnimator = GetComponent<Animator>();
     }
 
-    void Update()
+    private void Update()
     {
         OpenSesame();
     }

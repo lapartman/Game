@@ -2,73 +2,75 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : Movement
 {
     private PlayerMovement player;
-
-    private Animator enemyAnimator;
-    private Health health;
-    private Rigidbody2D characterBody;
     private CapsuleCollider2D characterCollider;
-    private SpriteRenderer characterSprite;
     private EnemyAttack attack;
 
-    [SerializeField] float runSpeed;
     [SerializeField] float playerDetectionRange;
 
-    void Start()
+    private void Start()
     {
-        enemyAnimator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         health = GetComponent<Health>();
-        characterBody = GetComponent<Rigidbody2D>();
+        body = GetComponent<Rigidbody2D>();
         characterCollider = GetComponent<CapsuleCollider2D>();
         player = FindObjectOfType<PlayerMovement>();
-        characterSprite = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         attack = GetComponent<EnemyAttack>();
     }
 
-    void Update()
+    private void Update()
     {
         TriggerDeath();
-        
+
         if (health.IsDead()) { return; }
-        PlayerInRange();
+        Move();
         Flip();
     }
 
-    private void PlayerInRange()
+    protected override void Move()
     {
-        if (Vector2.Distance(transform.position, player.transform.position) <= playerDetectionRange)
+        if (!IsPlayerInMeleeRange())
         {
-            enemyAnimator.SetBool("isRunning", true);
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, runSpeed * Time.deltaTime);
-        }
-        else
-        {
-            enemyAnimator.SetBool("isRunning", false);
+            if (Vector2.Distance(transform.position, player.transform.position) <= playerDetectionRange)
+            {
+                animator.SetBool("isRunning", true);
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, runSpeed * Time.deltaTime);
+            }
+            else
+            {
+                animator.SetBool("isRunning", false);
+            }
         }
     }
 
-    private void Flip()
+    private bool IsPlayerInMeleeRange()
     {
-        if (player.transform.position.x < characterBody.transform.position.x)
+        return Vector2.Distance(transform.position, player.transform.position) <= attack.attackRange;
+    }
+
+    protected override void Flip()
+    {
+        if (player.transform.position.x < body.transform.position.x)
         {
-            characterSprite.flipX = true;
+            spriteRenderer.flipX = true;
             attack.SetSlashPosition(false);
         }
-        else if (player.transform.position.x > characterBody.transform.position.x)
+        else if (player.transform.position.x > body.transform.position.x)
         {
-            characterSprite.flipX = false;
+            spriteRenderer.flipX = false;
             attack.SetSlashPosition(true);
         }
     }
 
-    private void TriggerDeath()
+    protected override void TriggerDeath()
     {
         if (health.IsDead())
         {
-            enemyAnimator.SetTrigger("death");
-            characterBody.bodyType = RigidbodyType2D.Static;
+            animator.SetTrigger("death");
+            body.bodyType = RigidbodyType2D.Static;
             Destroy(characterCollider);
             Destroy(gameObject, 1.5f);
         }

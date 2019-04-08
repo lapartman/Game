@@ -6,12 +6,12 @@ public class Health : MonoBehaviour
 {
     [SerializeField] int health;
 
-    void Start()
+    private void Start()
     {
 
     }
 
-    void Update()
+    private void Update()
     {
 
     }

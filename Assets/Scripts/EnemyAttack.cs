@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAttack : Attack
 {
-    [SerializeField] float attackRange;
+    public float attackRange;
     Health health;
 
     private void Start()
@@ -18,13 +18,13 @@ public class EnemyAttack : Attack
     {
         if (health.IsDead()) { return; }
         Slash();
-        Debug.Log(Vector2.Distance(transform.position, player.transform.position));
     }
 
     protected override void Slash()
     {
-        if (SlashCondition())
+        if (SlashCondition() && !player.GetComponent<Health>().IsDead())
         {
+            animator.SetBool("isRunning", false);
             animator.SetTrigger("slash");
             Collider2D enemyCollider = Physics2D.OverlapCircle(slashPosition.position, attackRadius, enemyMask);
             attackTimer = timeBetweenAttacks;
@@ -44,5 +44,11 @@ public class EnemyAttack : Attack
     protected override bool SlashCondition()
     {
         return attackTimer <= 0 && player.IsPlayerTouchingGround() && Vector2.Distance(transform.position, player.transform.position) <= attackRange;
+    }
+
+    public override void SetSlashPosition(bool facingRight)
+    {
+        float offset = facingRight ? 1f : -1f;
+        slashPosition.position = new Vector2(transform.position.x + offset, transform.position.y);
     }
 }
