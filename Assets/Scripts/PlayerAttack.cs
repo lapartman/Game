@@ -8,6 +8,7 @@ public class PlayerAttack : Attack
     {
         animator = GetComponent<Animator>();
         player = GetComponent<PlayerMovement>();
+        health = GetComponent<Health>();
     }
 
     private void Update()
@@ -17,7 +18,7 @@ public class PlayerAttack : Attack
 
     protected override void Slash()
     {
-        if (SlashCondition())
+        if (SlashCondition() && !health.IsDead())
         {
             animator.SetTrigger("slash");
             Collider2D enemyCollider = Physics2D.OverlapCircle(slashPosition.position, attackRadius, enemyMask);

@@ -13,6 +13,7 @@ public abstract class Attack : MonoBehaviour
 
     protected Animator animator;
     protected PlayerMovement player;
+    protected Health health;
 
     protected float attackTimer;
 

@@ -6,8 +6,6 @@ public class PlayerMovement : Movement
 {
     private PlayerAttack attack;
 
-    [SerializeField] float jumpForce;
-
     private int jumpCount;
     public bool PlayerHasKey { get; private set; } = false;
 
@@ -66,7 +64,7 @@ public class PlayerMovement : Movement
         return false;
     }
 
-    private void Jump()
+    protected override void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount > 0)
         {

@@ -9,6 +9,9 @@ public class EnemyMovement : Movement
     private EnemyAttack attack;
 
     [SerializeField] float playerDetectionRange;
+    [SerializeField] float jumpTimer;
+
+    private float jumpResetTimer;
 
     private void Start()
     {
@@ -73,6 +76,21 @@ public class EnemyMovement : Movement
             body.bodyType = RigidbodyType2D.Static;
             Destroy(characterCollider);
             Destroy(gameObject, 1.5f);
+        }
+    }
+
+    protected override void Jump()
+    {
+        if (player.transform.position.y > transform.position.y && jumpResetTimer <= 0f)
+        {
+            jumpResetTimer = jumpTimer;
+            Vector2 jumpVelocity = new Vector2(body.transform.position.x, jumpForce);
+            body.velocity += jumpVelocity;
+            animator.SetBool("isJumping", true);
+        }
+        else
+        {
+            jumpResetTimer -= Time.deltaTime;
         }
     }
 }

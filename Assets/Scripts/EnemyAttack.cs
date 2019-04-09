@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyAttack : Attack
 {
     public float attackRange;
-    Health health;
 
     private void Start()
     {
@@ -38,6 +37,7 @@ public class EnemyAttack : Attack
         else
         {
             attackTimer -= Time.deltaTime;
+            animator.SetBool("isRunning", false);
         }
     }
 
