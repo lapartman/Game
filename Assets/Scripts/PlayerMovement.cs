@@ -26,7 +26,7 @@ public class PlayerMovement : Movement
         Flip();
         Move();
         Jump();
-        IsPlayerTouchingGround();
+        IsCharacterTouchingGround();
     }
 
     protected override void Move()
@@ -53,7 +53,7 @@ public class PlayerMovement : Movement
         }
     }
 
-    public bool IsPlayerTouchingGround()
+    public override bool IsCharacterTouchingGround()
     {
         if (body.IsTouchingLayers(LayerMask.GetMask("Ground")) && body.velocity.y < Mathf.Epsilon)
         {
@@ -88,6 +88,7 @@ public class PlayerMovement : Movement
         if (health.IsDead())
         {
             animator.SetTrigger("death");
+            body.velocity = new Vector2(0f,0f);
         }
     }
 }

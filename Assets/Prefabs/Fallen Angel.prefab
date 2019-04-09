@@ -150,8 +150,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 5
-  playerDetectionRange: 10
-  jumpTimer: 1
+  jumpForce: 20
+  playerDetectionRange: 7
+  jumpTimer: 1.3
+  attackRange: 1.5
 --- !u!114 &2093769450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,7 +173,6 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 512
-  attackRange: 1.5
 --- !u!1 &4089325860491986942
 GameObject:
   m_ObjectHideFlags: 0

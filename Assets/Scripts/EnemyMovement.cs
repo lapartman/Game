@@ -8,8 +8,11 @@ public class EnemyMovement : Movement
     private CapsuleCollider2D characterCollider;
     private EnemyAttack attack;
 
+    Vector2 distance;
+
     [SerializeField] float playerDetectionRange;
     [SerializeField] float jumpTimer;
+    [SerializeField] float attackRange;
 
     private float jumpResetTimer;
 
@@ -27,17 +30,20 @@ public class EnemyMovement : Movement
     private void Update()
     {
         TriggerDeath();
+        IsCharacterTouchingGround();
+        Debug.Log(distance);
 
         if (health.IsDead()) { return; }
         Move();
         Flip();
+        Jump();
     }
 
     protected override void Move()
     {
         if (!IsPlayerInMeleeRange())
         {
-            if (Vector2.Distance(transform.position, player.transform.position) <= playerDetectionRange)
+            if (IsPlayerInDetectionRange())
             {
                 animator.SetBool("isRunning", true);
                 transform.position = Vector2.MoveTowards(transform.position, player.transform.position, runSpeed * Time.deltaTime);
@@ -49,9 +55,14 @@ public class EnemyMovement : Movement
         }
     }
 
-    private bool IsPlayerInMeleeRange()
+    public bool IsPlayerInMeleeRange()
     {
-        return Vector2.Distance(transform.position, player.transform.position) <= attack.attackRange;
+        return Vector2.Distance(transform.position, player.transform.position) <= attackRange;
+    }
+
+    public bool IsPlayerInDetectionRange()
+    {
+        return Vector2.Distance(transform.position, player.transform.position) <= playerDetectionRange;
     }
 
     protected override void Flip()
@@ -81,10 +92,10 @@ public class EnemyMovement : Movement
 
     protected override void Jump()
     {
-        if (player.transform.position.y > transform.position.y && jumpResetTimer <= 0f)
+        if ((AllowJump() && jumpResetTimer <= 0f && IsPlayerInDetectionRange()))
         {
             jumpResetTimer = jumpTimer;
-            Vector2 jumpVelocity = new Vector2(body.transform.position.x, jumpForce);
+            Vector2 jumpVelocity = new Vector2(JumpDirection(), jumpForce);
             body.velocity += jumpVelocity;
             animator.SetBool("isJumping", true);
         }
@@ -92,5 +103,32 @@ public class EnemyMovement : Movement
         {
             jumpResetTimer -= Time.deltaTime;
         }
+    }
+
+    private float JumpDirection()
+    {
+        bool isPlayerLeft = player.transform.position.x > body.transform.position.x;
+        float horizontalJumpForce = isPlayerLeft ? 5f : -5f;
+        return horizontalJumpForce;
+    }
+
+    private bool AllowJump()
+    {
+        distance = transform.position - player.transform.position;
+        if (Mathf.Abs(distance.y) > 0.1f)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public override bool IsCharacterTouchingGround()
+    {
+        if (body.IsTouchingLayers(LayerMask.GetMask("Ground"))&& body.velocity.y < Mathf.Epsilon)
+        {
+            animator.SetBool("isJumping", false);
+            return true;
+        }
+        return false;
     }
 }

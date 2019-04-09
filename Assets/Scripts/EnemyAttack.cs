@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class EnemyAttack : Attack
 {
-    public float attackRange;
+    EnemyMovement enemyMovement;
 
     private void Start()
     {
         player = FindObjectOfType<PlayerMovement>();
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
+        enemyMovement = GetComponent<EnemyMovement>();
     }
 
     private void Update()
@@ -43,7 +44,7 @@ public class EnemyAttack : Attack
 
     protected override bool SlashCondition()
     {
-        return attackTimer <= 0 && player.IsPlayerTouchingGround() && Vector2.Distance(transform.position, player.transform.position) <= attackRange;
+        return attackTimer <= 0 && player.IsCharacterTouchingGround() && enemyMovement.IsPlayerInMeleeRange();
     }
 
     public override void SetSlashPosition(bool facingRight)

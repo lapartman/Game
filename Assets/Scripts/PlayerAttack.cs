@@ -38,6 +38,6 @@ public class PlayerAttack : Attack
 
     protected override bool SlashCondition()
     {
-        return Input.GetKeyDown(KeyCode.Mouse0) && attackTimer <= 0 && player.IsPlayerTouchingGround();
+        return Input.GetKeyDown(KeyCode.Mouse0) && attackTimer <= 0 && player.IsCharacterTouchingGround();
     }
 }
