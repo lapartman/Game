@@ -5,27 +5,41 @@ using UnityEngine;
 public class Key : MonoBehaviour
 {
     private Rigidbody2D keyBody;
-    private SpriteRenderer spriteRenderer;
+    private bool isSpinning = true;
     public bool PlayerHasKey { get; private set; } = false;
 
     private void Start()
     {
         keyBody = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
-        transform.Rotate(0f, 180f * 0.5f * Time.deltaTime, 0f);
         PlayerHasTouchedKey();
+        SpinKey();
+    }
+
+    private void SpinKey()
+    {
+        if (isSpinning)
+        {
+            transform.Rotate(0f, 180f * 0.5f * Time.deltaTime, 0f);
+        }
     }
 
     private void PlayerHasTouchedKey()
     {
-        if (keyBody.IsTouchingLayers(LayerMask.GetMask("Player")))
+        if (keyBody != null && keyBody.IsTouchingLayers(LayerMask.GetMask("Player")))
         {
             PlayerHasKey = true;
-            Destroy(spriteRenderer);
+            isSpinning = false;
+            foreach (Component component in gameObject.GetComponents<Component>())
+            {
+                if (component != GetComponent<Key>() && component != GetComponent<Transform>())
+                {
+                    Destroy(component);
+                }
+            }
         }
     }
 }

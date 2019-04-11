@@ -88,7 +88,7 @@ public class PlayerMovement : Movement
         if (health.IsDead())
         {
             animator.SetTrigger("death");
-            body.velocity = new Vector2(0f,0f);
+            body.velocity = new Vector2(0f, 0f);
         }
     }
 }

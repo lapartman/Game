@@ -18,7 +18,7 @@ public class Chest : MonoBehaviour
         OpenSesame();
     }
 
-    public void OpenSesame()
+    private void OpenSesame()
     {
         if (FindObjectOfType<PlayerMovement>().PlayerHasKey && chestBody.IsTouchingLayers(LayerMask.GetMask("Player")))
         {

@@ -12,7 +12,6 @@ public class EnemyMovement : Movement
 
     [SerializeField] float playerDetectionRange;
     [SerializeField] float jumpTimer;
-    [SerializeField] float attackRange;
 
     private float jumpResetTimer;
 
@@ -31,7 +30,6 @@ public class EnemyMovement : Movement
     {
         TriggerDeath();
         IsCharacterTouchingGround();
-        Debug.Log(distance);
 
         if (health.IsDead()) { return; }
         Move();
@@ -41,9 +39,9 @@ public class EnemyMovement : Movement
 
     protected override void Move()
     {
-        if (!IsPlayerInMeleeRange())
+        if (!IsPlayerInSpecifiedRange(attack.attackRange))
         {
-            if (IsPlayerInDetectionRange())
+            if (IsPlayerInSpecifiedRange(playerDetectionRange))
             {
                 animator.SetBool("isRunning", true);
                 transform.position = Vector2.MoveTowards(transform.position, player.transform.position, runSpeed * Time.deltaTime);
@@ -55,14 +53,9 @@ public class EnemyMovement : Movement
         }
     }
 
-    public bool IsPlayerInMeleeRange()
+    public bool IsPlayerInSpecifiedRange(float rangeType)
     {
-        return Vector2.Distance(transform.position, player.transform.position) <= attackRange;
-    }
-
-    public bool IsPlayerInDetectionRange()
-    {
-        return Vector2.Distance(transform.position, player.transform.position) <= playerDetectionRange;
+        return Vector2.Distance(transform.position, player.transform.position) <= rangeType;
     }
 
     protected override void Flip()
@@ -92,7 +85,7 @@ public class EnemyMovement : Movement
 
     protected override void Jump()
     {
-        if ((AllowJump() && jumpResetTimer <= 0f && IsPlayerInDetectionRange()))
+        if (AllowJump() && jumpResetTimer <= 0f && IsPlayerInSpecifiedRange(playerDetectionRange))
         {
             jumpResetTimer = jumpTimer;
             Vector2 jumpVelocity = new Vector2(JumpDirection(), jumpForce);
@@ -124,7 +117,7 @@ public class EnemyMovement : Movement
 
     public override bool IsCharacterTouchingGround()
     {
-        if (body.IsTouchingLayers(LayerMask.GetMask("Ground"))&& body.velocity.y < Mathf.Epsilon)
+        if (body.IsTouchingLayers(LayerMask.GetMask("Ground")) && body.velocity.y < Mathf.Epsilon)
         {
             animator.SetBool("isJumping", false);
             return true;

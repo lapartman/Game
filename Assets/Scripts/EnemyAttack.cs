@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyAttack : Attack
 {
     EnemyMovement enemyMovement;
+    public float attackRange;
 
     private void Start()
     {
@@ -44,7 +45,7 @@ public class EnemyAttack : Attack
 
     protected override bool SlashCondition()
     {
-        return attackTimer <= 0 && player.IsCharacterTouchingGround() && enemyMovement.IsPlayerInMeleeRange();
+        return attackTimer <= 0 && player.IsCharacterTouchingGround() && enemyMovement.IsPlayerInSpecifiedRange(attackRange);
     }
 
     public override void SetSlashPosition(bool facingRight)
