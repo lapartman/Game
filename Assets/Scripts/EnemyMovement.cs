@@ -85,7 +85,7 @@ public class EnemyMovement : Movement
 
     protected override void Jump()
     {
-        if (AllowJump() && jumpResetTimer <= 0f && IsPlayerInSpecifiedRange(playerDetectionRange))
+        if (AllowJump() && jumpResetTimer <= 0f && IsPlayerInSpecifiedRange(playerDetectionRange) && !IsPlayerInSpecifiedRange(attack.attackRange))
         {
             jumpResetTimer = jumpTimer;
             Vector2 jumpVelocity = new Vector2(JumpDirection(), jumpForce);
