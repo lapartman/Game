@@ -23,7 +23,7 @@ public class EnemyAttack : Attack
 
     protected override void Slash()
     {
-        if (SlashCondition() && !player.GetComponent<Health>().IsDead())
+        if (SlashCondition())
         {
             animator.SetBool("isRunning", false);
             animator.SetTrigger("slash");
@@ -45,7 +45,7 @@ public class EnemyAttack : Attack
 
     protected override bool SlashCondition()
     {
-        return attackTimer <= 0 && player.IsCharacterTouchingGround() && enemyMovement.IsPlayerInSpecifiedRange(attackRange);
+        return attackTimer <= 0 && player.IsCharacterTouchingGround() && enemyMovement.IsPlayerInSpecifiedRange(attackRange) && !player.GetComponent<Health>().IsDead();
     }
 
     public override void SetSlashPosition(bool facingRight)

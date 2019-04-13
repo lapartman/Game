@@ -18,7 +18,7 @@ public class PlayerAttack : Attack
 
     protected override void Slash()
     {
-        if (SlashCondition() && !health.IsDead())
+        if (SlashCondition())
         {
             animator.SetTrigger("slash");
             Collider2D enemyCollider = Physics2D.OverlapCircle(slashPosition.position, attackRadius, enemyMask);
@@ -38,6 +38,6 @@ public class PlayerAttack : Attack
 
     protected override bool SlashCondition()
     {
-        return Input.GetKeyDown(KeyCode.Mouse0) && attackTimer <= 0 && player.IsCharacterTouchingGround();
+        return Input.GetKeyDown(KeyCode.Mouse0) && attackTimer <= 0 && player.IsCharacterTouchingGround() && !health.IsDead();
     }
 }

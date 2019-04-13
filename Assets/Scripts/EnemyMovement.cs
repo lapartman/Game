@@ -12,6 +12,7 @@ public class EnemyMovement : Movement
 
     [SerializeField] float playerDetectionRange;
     [SerializeField] float jumpTimer;
+    [SerializeField] int abilityValue;
 
     private float jumpResetTimer;
 
@@ -39,17 +40,14 @@ public class EnemyMovement : Movement
 
     protected override void Move()
     {
-        if (!IsPlayerInSpecifiedRange(attack.attackRange))
+        if (IsPlayerInSpecifiedRange(playerDetectionRange) && !IsPlayerInSpecifiedRange(attack.attackRange))
         {
-            if (IsPlayerInSpecifiedRange(playerDetectionRange))
-            {
-                animator.SetBool("isRunning", true);
-                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, runSpeed * Time.deltaTime);
-            }
-            else
-            {
-                animator.SetBool("isRunning", false);
-            }
+            animator.SetBool("isRunning", true);
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, runSpeed * Time.deltaTime);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
         }
     }
 
@@ -80,6 +78,7 @@ public class EnemyMovement : Movement
             body.bodyType = RigidbodyType2D.Static;
             Destroy(characterCollider);
             Destroy(gameObject, 1.5f);
+            FindObjectOfType<GameManager>().AddAbilityPoints(abilityValue);
         }
     }
 
