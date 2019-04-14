@@ -8,6 +8,7 @@ public class PlayerMovement : Movement
 
     private int jumpCount;
     public bool PlayerHasKey { get; private set; } = false;
+    private GameManager gameManager;
 
     private void Start()
     {
@@ -16,6 +17,8 @@ public class PlayerMovement : Movement
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         attack = GetComponent<PlayerAttack>();
         health = GetComponent<Health>();
+        gameManager = FindObjectOfType<GameManager>();
+        health.SetStartingHealth(gameManager.playerHealth);
     }
 
     private void Update()

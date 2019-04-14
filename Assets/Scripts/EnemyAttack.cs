@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemyAttack : Attack
 {
-    EnemyMovement enemyMovement;
+    private EnemyMovement enemyMovement;
     public float attackRange;
+    [SerializeField] int damage;
 
     private void Start()
     {

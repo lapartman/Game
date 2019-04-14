@@ -7,13 +7,12 @@ public class EnemyMovement : Movement
     private PlayerMovement player;
     private CapsuleCollider2D characterCollider;
     private EnemyAttack attack;
-
-    Vector2 distance;
+    private Vector2 distance;
 
     [SerializeField] float playerDetectionRange;
-    [SerializeField] float jumpTimer;
     [SerializeField] int abilityValue;
 
+    [SerializeField] float jumpTimer;
     private float jumpResetTimer;
 
     private void Start()
@@ -31,7 +30,6 @@ public class EnemyMovement : Movement
     {
         TriggerDeath();
         IsCharacterTouchingGround();
-
         if (health.IsDead()) { return; }
         Move();
         Flip();
@@ -78,7 +76,6 @@ public class EnemyMovement : Movement
             body.bodyType = RigidbodyType2D.Static;
             Destroy(characterCollider);
             Destroy(gameObject, 1.5f);
-            FindObjectOfType<GameManager>().AddAbilityPoints(abilityValue);
         }
     }
 

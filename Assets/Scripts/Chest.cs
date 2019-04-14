@@ -6,6 +6,7 @@ public class Chest : MonoBehaviour
 {
     private Rigidbody2D chestBody;
     private Animator chestAnimator;
+    private bool chestIsOpen = false;
 
     private void Start()
     {
@@ -13,16 +14,18 @@ public class Chest : MonoBehaviour
         chestAnimator = GetComponent<Animator>();
     }
 
-    private void Update()
+    private void OnTriggerEnter2D()
     {
         OpenSesame();
     }
 
     private void OpenSesame()
     {
-        if (FindObjectOfType<PlayerMovement>().PlayerHasKey && chestBody.IsTouchingLayers(LayerMask.GetMask("Player")))
+        if (FindObjectOfType<PlayerMovement>().PlayerHasKey && chestBody.IsTouchingLayers(LayerMask.GetMask("Player")) && !chestIsOpen)
         {
             chestAnimator.SetTrigger("openChest");
+            chestIsOpen = true;
+            FindObjectOfType<GameManager>().AddAbilityPoints(1);
         }
     }
 }

@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlayerAttack : Attack
 {
+    private GameManager gameManager;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
         player = GetComponent<PlayerMovement>();
         health = GetComponent<Health>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -26,7 +29,7 @@ public class PlayerAttack : Attack
             if (enemyCollider == null) { return; }
             if (enemyCollider.GetComponent<EnemyMovement>())
             {
-                enemyCollider.GetComponent<Health>().DealDamage(damage);
+                enemyCollider.GetComponent<Health>().DealDamage(gameManager.playerDamage);
                 enemyCollider.GetComponent<Animator>().SetTrigger("hurt");
             }
         }

@@ -15,4 +15,9 @@ public class Health : MonoBehaviour
     {
         return health <= 0;
     }
+
+    public void SetStartingHealth(int startingHealth)
+    {
+        health = startingHealth;
+    }
 }

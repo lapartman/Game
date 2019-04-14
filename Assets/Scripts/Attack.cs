@@ -6,7 +6,6 @@ public abstract class Attack : MonoBehaviour
 {
     public float timeBetweenAttacks;
     public float attackRadius;
-    public int damage;
 
     public Transform slashPosition;
     public LayerMask enemyMask;
