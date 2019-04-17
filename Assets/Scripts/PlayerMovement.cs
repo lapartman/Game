@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovement : Movement
 {
@@ -44,12 +42,12 @@ public class PlayerMovement : Movement
 
     protected override void Flip()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow))
         {
             spriteRenderer.flipX = true;
             attack.SetSlashPosition(false);
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             spriteRenderer.flipX = false;
             attack.SetSlashPosition(true);

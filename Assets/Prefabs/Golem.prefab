@@ -122,7 +122,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenAttacks: 0.75
   attackRadius: 0.5
-  damage: 1
   slashPosition: {fileID: 8493550332299505852}
   enemyMask:
     serializedVersion: 2

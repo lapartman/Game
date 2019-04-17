@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StatManager : MonoBehaviour
 {
     private GameManager gameManager;
-    private ScoreDisplay scoreDisplay;
+    private AbilityDisplay scoreDisplay;
 
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        scoreDisplay = FindObjectOfType<ScoreDisplay>();
+        scoreDisplay = FindObjectOfType<AbilityDisplay>();
     }
 
     public void IncreaseHealth()
@@ -19,7 +17,7 @@ public class StatManager : MonoBehaviour
         {
             gameManager.playerHealth += 1;
             gameManager.RemoveAbilityPoints(1);
-            scoreDisplay.DisplayAbilityPoints();
+            scoreDisplay.DisplayPoints();
         }
     }
 
@@ -29,7 +27,7 @@ public class StatManager : MonoBehaviour
         {
             gameManager.playerDamage += 1;
             gameManager.RemoveAbilityPoints(1);
-            scoreDisplay.DisplayAbilityPoints();
+            scoreDisplay.DisplayPoints();
         }
     }
 }

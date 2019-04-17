@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyMovement : Movement
 {
@@ -34,6 +32,11 @@ public class EnemyMovement : Movement
         Move();
         Flip();
         Jump();
+    }
+
+    private void OnDestroy()
+    {
+        FindObjectOfType<GameManager>().AddAbilityPoints(abilityValue);
     }
 
     protected override void Move()

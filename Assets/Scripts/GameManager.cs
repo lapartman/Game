@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public int AbilityPoints { get; private set; }
+    public int TotalScore { get; private set; }
 
     public int playerHealth = 10;
     public int playerDamage = 1;
@@ -40,5 +38,10 @@ public class GameManager : MonoBehaviour
     public void RemoveAbilityPoints(int points)
     {
         AbilityPoints -= points;
+    }
+
+    public void AddToTotalScore(int score)
+    {
+        TotalScore += score;
     }
 }

@@ -1,21 +1,16 @@
 ﻿using UnityEngine.UI;
 
-public class ScoreDisplay : Display
+public class AbilityDisplay : Display
 {
-    void Start()
+    private void Start()
     {
         textComponent = GetComponent<Text>();
         gameManager = FindObjectOfType<GameManager>();
         DisplayPoints();
     }
-    
-    void Update()
-    {
-        DisplayPoints();
-    }
 
     public override void DisplayPoints()
     {
-        textComponent.text=$"Pont: {gameManager.TotalScore}";
+        textComponent.text = $"Képességpontjaid száma: {gameManager.AbilityPoints}";
     }
 }
