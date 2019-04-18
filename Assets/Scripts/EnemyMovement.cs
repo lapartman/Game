@@ -6,11 +6,13 @@ public class EnemyMovement : Movement
     private CapsuleCollider2D characterCollider;
     private EnemyAttack attack;
     private Vector2 distance;
+    private GameManager gameManager;
 
     [SerializeField] float playerDetectionRange;
     [SerializeField] int abilityValue;
-
     [SerializeField] float jumpTimer;
+    [SerializeField] int scoreValue;
+
     private float jumpResetTimer;
 
     private void Start()
@@ -22,6 +24,7 @@ public class EnemyMovement : Movement
         player = FindObjectOfType<PlayerMovement>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         attack = GetComponent<EnemyAttack>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -36,7 +39,9 @@ public class EnemyMovement : Movement
 
     private void OnDestroy()
     {
-        FindObjectOfType<GameManager>().AddAbilityPoints(abilityValue);
+        gameManager.AddAbilityPoints(abilityValue);
+        gameManager.AddToTotalScore(scoreValue);
+        FindObjectOfType<ScoreDisplay>().DisplayPoints();
     }
 
     protected override void Move()

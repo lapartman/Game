@@ -42,7 +42,7 @@ public class PlayerMovement : Movement
 
     protected override void Flip()
     {
-        if (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             spriteRenderer.flipX = true;
             attack.SetSlashPosition(false);

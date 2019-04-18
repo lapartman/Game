@@ -2,15 +2,10 @@
 
 public class ScoreDisplay : Display
 {
-    void Start()
+    private void Start()
     {
         textComponent = GetComponent<Text>();
         gameManager = FindObjectOfType<GameManager>();
-        DisplayPoints();
-    }
-    
-    void Update()
-    {
         DisplayPoints();
     }
 
