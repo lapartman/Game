@@ -3,10 +3,7 @@
 public abstract class Attack : MonoBehaviour
 {
     public float timeBetweenAttacks;
-    public float attackRadius;
-
     public Transform slashPosition;
-    public LayerMask enemyMask;
 
     protected Animator animator;
     protected PlayerMovement player;

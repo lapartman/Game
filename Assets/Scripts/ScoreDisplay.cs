@@ -11,6 +11,6 @@ public class ScoreDisplay : Display
 
     public override void DisplayPoints()
     {
-        textComponent.text=$"Pont: {gameManager.TotalScore}";
+        textComponent.text = $"Pont: {gameManager.TotalScore}";
     }
 }

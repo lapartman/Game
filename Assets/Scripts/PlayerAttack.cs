@@ -3,6 +3,8 @@
 public class PlayerAttack : Attack
 {
     private GameManager gameManager;
+    [SerializeField] LayerMask enemyMask;
+    [SerializeField] float attackRadius;
 
     private void Start()
     {

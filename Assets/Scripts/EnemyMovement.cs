@@ -4,7 +4,7 @@ public class EnemyMovement : Movement
 {
     private PlayerMovement player;
     private CapsuleCollider2D characterCollider;
-    private EnemyAttack attack;
+    private EnemyAttackMelee attack;
     private Vector2 distance;
     private GameManager gameManager;
 
@@ -23,7 +23,7 @@ public class EnemyMovement : Movement
         characterCollider = GetComponent<CapsuleCollider2D>();
         player = FindObjectOfType<PlayerMovement>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        attack = GetComponent<EnemyAttack>();
+        attack = GetComponent<EnemyAttackMelee>();
         gameManager = FindObjectOfType<GameManager>();
     }
 
