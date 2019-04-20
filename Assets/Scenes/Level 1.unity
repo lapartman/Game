@@ -331,7 +331,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2024921446 stripped
 GameObject:
@@ -1641,6 +1641,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fallen Angel Melee
       objectReference: {fileID: 0}
+    - target: {fileID: 4089325859786596702, guid: b048478a96d17594987c87cf0872a778,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4089325859786596675, guid: b048478a96d17594987c87cf0872a778,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2029,7 +2034,7 @@ PrefabInstance:
     - target: {fileID: 8715877736131718963, guid: 472d6a57ca9e8904290d106e8bd9488d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8715877736131718963, guid: 472d6a57ca9e8904290d106e8bd9488d,
         type: 3}

@@ -2,7 +2,7 @@
 
 public class EnemyAttackMelee : Attack
 {
-    private EnemyMovement enemyMovement;
+    private EnemyMovementMelee enemyMovement;
     public float attackRange;
 
     [SerializeField] LayerMask enemyMask;
@@ -14,7 +14,7 @@ public class EnemyAttackMelee : Attack
         player = FindObjectOfType<PlayerMovement>();
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
-        enemyMovement = GetComponent<EnemyMovement>();
+        enemyMovement = GetComponent<EnemyMovementMelee>();
     }
 
     private void Update()

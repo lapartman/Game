@@ -10,13 +10,16 @@ public class Spell : MonoBehaviour
         Move();
     }
 
-    private void OnCollisionEnter2D(Collision2D otherCollider)
+    private void OnTriggerEnter2D(Collider2D otherCollider)
     {
-        GameObject otherObject = otherCollider.gameObject;
-        if (otherObject.GetComponent<PlayerMovement>())
+        if (otherCollider.GetComponent<PlayerMovement>())
         {
-            otherObject.GetComponent<Health>().DealDamage(spellDamage);
+            otherCollider.GetComponent<Health>().DealDamage(spellDamage);
             Destroy(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject, 1.5f);
         }
     }
 

@@ -1,12 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class EnemyMovement : Movement
+public class EnemyMovementRanged : Movement
 {
     private PlayerMovement player;
     private CapsuleCollider2D characterCollider;
-    private EnemyAttackMelee attack;
     private Vector2 distance;
     private GameManager gameManager;
+    private EnemyAttackRanged attackRanged;
 
     [SerializeField] float playerDetectionRange;
     [SerializeField] int abilityValue;
@@ -21,32 +23,28 @@ public class EnemyMovement : Movement
         health = GetComponent<Health>();
         body = GetComponent<Rigidbody2D>();
         characterCollider = GetComponent<CapsuleCollider2D>();
-        player = FindObjectOfType<PlayerMovement>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        attack = GetComponent<EnemyAttackMelee>();
+        attackRanged = GetComponent<EnemyAttackRanged>();
         gameManager = FindObjectOfType<GameManager>();
+        player = FindObjectOfType<PlayerMovement>();
     }
 
     private void Update()
     {
-        TriggerDeath();
         IsCharacterTouchingGround();
-        if (health.IsDead()) { return; }
+        if (health.IsDead())
+        {
+            StartCoroutine(TriggerDeath());
+            return;
+        }
         Move();
         Flip();
         Jump();
     }
 
-    private void OnDestroy()
-    {
-        gameManager.AddAbilityPoints(abilityValue);
-        gameManager.AddToTotalScore(scoreValue);
-        FindObjectOfType<ScoreDisplay>().DisplayPoints();
-    }
-
     protected override void Move()
     {
-        if (IsPlayerInSpecifiedRange(playerDetectionRange) && !IsPlayerInSpecifiedRange(attack.attackRange))
+        if (IsPlayerInSpecifiedRange(playerDetectionRange) && !IsPlayerInSpecifiedRange(attackRanged.attackRange))
         {
             animator.SetBool("isRunning", true);
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, runSpeed * Time.deltaTime);
@@ -67,29 +65,30 @@ public class EnemyMovement : Movement
         if (player.transform.position.x < body.transform.position.x)
         {
             spriteRenderer.flipX = true;
-            attack.SetSlashPosition(false);
+            attackRanged.SetSlashPosition(false);
         }
         else if (player.transform.position.x > body.transform.position.x)
         {
             spriteRenderer.flipX = false;
-            attack.SetSlashPosition(true);
+            attackRanged.SetSlashPosition(true);
         }
     }
 
-    protected override void TriggerDeath()
+    protected override IEnumerator TriggerDeath()
     {
-        if (health.IsDead())
-        {
-            animator.SetTrigger("death");
-            body.bodyType = RigidbodyType2D.Static;
-            Destroy(characterCollider);
-            Destroy(gameObject, 1.5f);
-        }
+        animator.SetTrigger("death");
+        body.bodyType = RigidbodyType2D.Static;
+        Destroy(characterCollider);
+        Destroy(gameObject, 1.5f);
+        yield return new WaitForSeconds(1.48f);
+        gameManager.AddAbilityPoints(abilityValue);
+        gameManager.AddToTotalScore(scoreValue);
+        FindObjectOfType<ScoreDisplay>().DisplayPoints();
     }
 
     protected override void Jump()
     {
-        if (AllowJump() && jumpResetTimer <= 0f && IsPlayerInSpecifiedRange(playerDetectionRange) && !IsPlayerInSpecifiedRange(attack.attackRange))
+        if (AllowJump() && jumpResetTimer <= 0f && IsPlayerInSpecifiedRange(playerDetectionRange) && !IsPlayerInSpecifiedRange(attackRanged.attackRange))
         {
             jumpResetTimer = jumpTimer;
             Vector2 jumpVelocity = new Vector2(JumpDirection(), jumpForce);

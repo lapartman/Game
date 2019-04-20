@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerMovement : Movement
 {
@@ -22,8 +23,11 @@ public class PlayerMovement : Movement
     private void Update()
     {
         PlayerGotKey();
-        TriggerDeath();
-        if (health.IsDead()) { return; }
+        if (health.IsDead())
+        {
+            StartCoroutine(TriggerDeath());
+            return;
+        }
         Flip();
         Move();
         Jump();
@@ -84,10 +88,11 @@ public class PlayerMovement : Movement
         }
     }
 
-    protected override void TriggerDeath()
+    protected override IEnumerator TriggerDeath()
     {
         if (health.IsDead())
         {
+            yield return new WaitForSeconds(0f);
             animator.SetTrigger("death");
             body.velocity = new Vector2(0f, 0f);
         }

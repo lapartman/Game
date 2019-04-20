@@ -27,7 +27,7 @@ public class PlayerAttack : Attack
             Collider2D enemyCollider = Physics2D.OverlapCircle(slashPosition.position, attackRadius, enemyMask);
             attackTimer = timeBetweenAttacks;
             if (enemyCollider == null) { return; }
-            if (enemyCollider.GetComponent<EnemyMovement>())
+            if (enemyCollider.GetComponent<EnemyMovementMelee>() || enemyCollider.GetComponent<EnemyMovementRanged>())
             {
                 enemyCollider.GetComponent<Health>().DealDamage(gameManager.playerDamage);
                 enemyCollider.GetComponent<Animator>().SetTrigger("hurt");

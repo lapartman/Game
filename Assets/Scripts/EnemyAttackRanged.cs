@@ -2,7 +2,7 @@
 
 public class EnemyAttackRanged : Attack
 {
-    private EnemyMovement enemyMovement;
+    private EnemyMovementRanged enemyMovement;
     public float attackRange;
 
     [SerializeField] GameObject spell;
@@ -12,7 +12,7 @@ public class EnemyAttackRanged : Attack
         player = FindObjectOfType<PlayerMovement>();
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
-        enemyMovement = GetComponent<EnemyMovement>();
+        enemyMovement = GetComponent<EnemyMovementRanged>();
     }
 
     private void Update()
