@@ -43,4 +43,10 @@ public class PlayerAttack : Attack
     {
         return Input.GetKeyDown(KeyCode.Mouse0) && attackTimer <= 0 && player.IsCharacterTouchingGround() && !health.IsDead();
     }
+
+    public override void SetSlashPosition(bool facingRight)
+    {
+        float offset = facingRight ? 1.25f : -1.25f;
+        slashPosition.position = new Vector2(transform.position.x + offset, transform.position.y);
+    }
 }

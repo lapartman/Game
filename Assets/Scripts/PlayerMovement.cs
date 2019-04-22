@@ -6,7 +6,8 @@ public class PlayerMovement : Movement
     private PlayerAttack attack;
 
     private int jumpCount;
-    public bool PlayerHasKey { get; private set; } = false;
+    public int playerKeyCount = 0;
+
     private GameManager gameManager;
 
     private void Start()
@@ -22,7 +23,6 @@ public class PlayerMovement : Movement
 
     private void Update()
     {
-        PlayerGotKey();
         if (health.IsDead())
         {
             StartCoroutine(TriggerDeath());
@@ -46,12 +46,12 @@ public class PlayerMovement : Movement
 
     protected override void Flip()
     {
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.RightArrow)))
         {
             spriteRenderer.flipX = true;
             attack.SetSlashPosition(false);
         }
-        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.LeftArrow)))
         {
             spriteRenderer.flipX = false;
             attack.SetSlashPosition(true);
@@ -80,21 +80,10 @@ public class PlayerMovement : Movement
         }
     }
 
-    private void PlayerGotKey()
-    {
-        if (FindObjectOfType<Key>().PlayerHasKey)
-        {
-            PlayerHasKey = true;
-        }
-    }
-
     protected override IEnumerator TriggerDeath()
     {
-        if (health.IsDead())
-        {
-            yield return new WaitForSeconds(0f);
-            animator.SetTrigger("death");
-            body.velocity = new Vector2(0f, 0f);
-        }
+        yield return new WaitForSeconds(0f);
+        animator.SetTrigger("death");
+        body.velocity = new Vector2(0f, 0f);
     }
 }

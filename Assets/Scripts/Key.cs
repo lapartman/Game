@@ -3,8 +3,6 @@
 public class Key : MonoBehaviour
 {
     private Rigidbody2D keyBody;
-    private bool isSpinning = true;
-    public bool PlayerHasKey { get; private set; } = false;
 
     private void Start()
     {
@@ -19,25 +17,19 @@ public class Key : MonoBehaviour
 
     private void SpinKey()
     {
-        if (isSpinning)
-        {
-            transform.Rotate(0f, 180f * 0.5f * Time.deltaTime, 0f);
-        }
+        transform.Rotate(0f, 180f * 0.5f * Time.deltaTime, 0f);
     }
 
     private void PlayerHasTouchedKey()
     {
-        if (keyBody != null && keyBody.IsTouchingLayers(LayerMask.GetMask("Player")))
+        if (keyBody.IsTouchingLayers(LayerMask.GetMask("Player")))
         {
-            PlayerHasKey = true;
-            isSpinning = false;
-            foreach (Component component in gameObject.GetComponents<Component>())
-            {
-                if (component != GetComponent<Key>() && component != GetComponent<Transform>())
-                {
-                    Destroy(component);
-                }
-            }
+            Destroy(gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        FindObjectOfType<PlayerMovement>().playerKeyCount++;
     }
 }

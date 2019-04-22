@@ -19,7 +19,7 @@ public class Chest : MonoBehaviour
 
     private void OpenSesame()
     {
-        if (FindObjectOfType<PlayerMovement>().PlayerHasKey && chestBody.IsTouchingLayers(LayerMask.GetMask("Player")) && !chestIsOpen)
+        if (FindObjectOfType<PlayerMovement>().playerKeyCount > 0 && chestBody.IsTouchingLayers(LayerMask.GetMask("Player")) && !chestIsOpen)
         {
             chestAnimator.SetTrigger("openChest");
             chestIsOpen = true;

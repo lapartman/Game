@@ -78,8 +78,8 @@ public class EnemyMovementMelee : Movement
         animator.SetTrigger("death");
         body.bodyType = RigidbodyType2D.Static;
         Destroy(characterCollider);
-        Destroy(gameObject, 1.5f);
-        yield return new WaitForSeconds(1.48f);
+        Destroy(gameObject, deathDelay);
+        yield return new WaitForSeconds(deathDelay - 0.02f);
         gameManager.AddAbilityPoints(abilityValue);
         gameManager.AddToTotalScore(scoreValue);
         FindObjectOfType<ScoreDisplay>().DisplayPoints();

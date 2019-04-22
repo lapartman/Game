@@ -10,6 +10,7 @@ public abstract class Movement : MonoBehaviour
 
     public float runSpeed;
     public float jumpForce;
+    public float deathDelay;
 
     protected abstract void Move();
     protected abstract void Flip();
