@@ -24,6 +24,7 @@ public class Chest : MonoBehaviour
             chestAnimator.SetTrigger("openChest");
             chestIsOpen = true;
             FindObjectOfType<GameManager>().AddAbilityPoints(1);
+            FindObjectOfType<PlayerMovement>().playerKeyCount--;
         }
     }
 }

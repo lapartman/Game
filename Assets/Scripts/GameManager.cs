@@ -25,12 +25,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        Debug.Log(TotalScore);
-        Debug.Log(AbilityPoints);
-    }
-
     public bool HaveEnoughAbilityPoints()
     {
         return AbilityPoints > 0;
