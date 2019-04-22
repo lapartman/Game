@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spellDamage: 1
-  spellSpeed: 1
+  spellSpeed: 5
 --- !u!61 &4922665947406828010
 BoxCollider2D:
   m_ObjectHideFlags: 0

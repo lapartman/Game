@@ -1996,6 +1996,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fallen Angel Ranged
       objectReference: {fileID: 0}
+    - target: {fileID: 8715877736131718984, guid: 472d6a57ca9e8904290d106e8bd9488d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8715877736131718963, guid: 472d6a57ca9e8904290d106e8bd9488d,
         type: 3}
       propertyPath: m_LocalPosition.x
