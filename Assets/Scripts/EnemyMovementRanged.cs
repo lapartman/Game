@@ -16,7 +16,7 @@ public class EnemyMovementRanged : Movement
     [SerializeField] int scoreValue;
 
     private float jumpResetTimer;
-    public bool isCharacterFlipped = false;
+    public bool IsCharacterFlipped { get; private set; } = false;
 
     private void Start()
     {
@@ -67,13 +67,13 @@ public class EnemyMovementRanged : Movement
         {
             spriteRenderer.flipX = true;
             attackRanged.SetSlashPosition(false);
-            isCharacterFlipped = false;
+            IsCharacterFlipped = false;
         }
         else if (player.transform.position.x > body.transform.position.x)
         {
             spriteRenderer.flipX = false;
             attackRanged.SetSlashPosition(true);
-            isCharacterFlipped = true;
+            IsCharacterFlipped = true;
         }
     }
 

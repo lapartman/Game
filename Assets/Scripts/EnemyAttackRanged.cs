@@ -5,8 +5,9 @@ public class EnemyAttackRanged : Attack
     private EnemyMovementRanged enemyMovement;
     public float attackRange;
 
-    [SerializeField] GameObject spell;
+    [SerializeField] GameObject fireSpell;
     [SerializeField] float spellSpeed;
+    GameObject spellReference;
 
     private void Start()
     {
@@ -29,8 +30,8 @@ public class EnemyAttackRanged : Attack
             animator.SetBool("isRunning", false);
             animator.SetTrigger("slash");
             attackTimer = timeBetweenAttacks;
-            GameObject fireSpell = Instantiate(spell, slashPosition.position, Quaternion.identity);
-            fireSpell.GetComponent<Rigidbody2D>().velocity = FireSpellDirection();
+            spellReference = Instantiate(fireSpell, slashPosition.position, Quaternion.identity);
+            spellReference.GetComponent<Rigidbody2D>().velocity = FireSpellDirection();
         }
         else
         {
@@ -53,13 +54,16 @@ public class EnemyAttackRanged : Attack
     private Vector2 FireSpellDirection()
     {
         Vector2 direction = new Vector2();
-        if (enemyMovement.isCharacterFlipped)
+        switch (enemyMovement.IsCharacterFlipped)
         {
-            direction = new Vector2(5f, 0f);
-        }
-        else if (!enemyMovement.isCharacterFlipped)
-        {
-            direction = -new Vector2(5f, 0f);
+            case true:
+                direction = new Vector2(5f, 0f);
+                spellReference.GetComponent<SpriteRenderer>().flipX = false;
+                break;
+            case false:
+                direction = -new Vector2(5f, 0f);
+                spellReference.GetComponent<SpriteRenderer>().flipX = true;
+                break;
         }
         return direction;
     }

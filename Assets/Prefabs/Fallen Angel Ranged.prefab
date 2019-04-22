@@ -231,7 +231,9 @@ MonoBehaviour:
   timeBetweenAttacks: 1.25
   slashPosition: {fileID: 8715877735086195640}
   attackRange: 5
-  spell: {fileID: 4670945911083517076, guid: b9e1220198dcf614aac07ac21e9f4539, type: 3}
+  fireSpell: {fileID: 4670945911083517076, guid: b9e1220198dcf614aac07ac21e9f4539,
+    type: 3}
+  spellSpeed: 0
 --- !u!114 &4029356824428664827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,3 +252,4 @@ MonoBehaviour:
   abilityValue: 2
   jumpTimer: 1.3
   scoreValue: 200
+  isCharacterFlipped: 0
