@@ -5,7 +5,6 @@ public class EnemyMovementMelee : Movement
 {
     private PlayerMovement player;
     private CapsuleCollider2D characterCollider;
-    private Vector2 distance;
     private GameManager gameManager;
     private EnemyAttackMelee attackMelee;
 
@@ -54,35 +53,28 @@ public class EnemyMovementMelee : Movement
         }
     }
 
-    public bool IsPlayerInSpecifiedRange(float rangeType)
-    {
-        return Vector2.Distance(transform.position, player.transform.position) <= rangeType;
-    }
-
     protected override void Flip()
     {
         if (player.transform.position.x < body.transform.position.x)
         {
             spriteRenderer.flipX = true;
-            attackMelee.SetSlashPosition(false);
+            attackMelee.SetSlashPosition(true);
         }
         else if (player.transform.position.x > body.transform.position.x)
         {
             spriteRenderer.flipX = false;
-            attackMelee.SetSlashPosition(true);
+            attackMelee.SetSlashPosition(false);
         }
     }
 
-    protected override IEnumerator TriggerDeath()
+    public override bool IsCharacterTouchingGround()
     {
-        animator.SetTrigger("death");
-        body.bodyType = RigidbodyType2D.Static;
-        Destroy(characterCollider);
-        Destroy(gameObject, deathDelay);
-        yield return new WaitForSeconds(deathDelay - 0.02f);
-        gameManager.AddAbilityPoints(abilityValue);
-        gameManager.AddToTotalScore(scoreValue);
-        FindObjectOfType<ScoreDisplay>().DisplayPoints();
+        if (body.IsTouchingLayers(LayerMask.GetMask("Ground")) && body.velocity.y < Mathf.Epsilon)
+        {
+            animator.SetBool("isJumping", false);
+            return true;
+        }
+        return false;
     }
 
     protected override void Jump()
@@ -100,6 +92,23 @@ public class EnemyMovementMelee : Movement
         }
     }
 
+    protected override IEnumerator TriggerDeath()
+    {
+        animator.SetTrigger("death");
+        body.bodyType = RigidbodyType2D.Static;
+        Destroy(characterCollider);
+        Destroy(gameObject, deathDelay);
+        yield return new WaitForSeconds(deathDelay - 0.02f);
+        gameManager.AddAbilityPoints(abilityValue);
+        gameManager.AddToTotalScore(scoreValue);
+        FindObjectOfType<ScoreDisplay>().DisplayPoints();
+    }
+
+    public bool IsPlayerInSpecifiedRange(float rangeType)
+    {
+        return Vector2.Distance(transform.position, player.transform.position) <= rangeType;
+    }
+
     private float JumpDirection()
     {
         bool isPlayerLeft = player.transform.position.x > body.transform.position.x;
@@ -109,19 +118,9 @@ public class EnemyMovementMelee : Movement
 
     private bool AllowJump()
     {
-        distance = transform.position - player.transform.position;
+        Vector2 distance = transform.position - player.transform.position;
         if (Mathf.Abs(distance.y) > 0.1f)
         {
-            return true;
-        }
-        return false;
-    }
-
-    public override bool IsCharacterTouchingGround()
-    {
-        if (body.IsTouchingLayers(LayerMask.GetMask("Ground")) && body.velocity.y < Mathf.Epsilon)
-        {
-            animator.SetBool("isJumping", false);
             return true;
         }
         return false;

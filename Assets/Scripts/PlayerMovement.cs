@@ -32,7 +32,6 @@ public class PlayerMovement : Movement
         Move();
         Jump();
         IsCharacterTouchingGround();
-        Debug.Log(playerKeyCount);
     }
 
     protected override void Move()

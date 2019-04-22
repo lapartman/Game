@@ -47,7 +47,7 @@ public class EnemyAttackRanged : Attack
 
     public override void SetSlashPosition(bool facingRight)
     {
-        float offset = facingRight ? 1f : -1f;
+        float offset = facingRight ? -1f : 1f;
         slashPosition.position = new Vector2(transform.position.x + offset, transform.position.y);
     }
 

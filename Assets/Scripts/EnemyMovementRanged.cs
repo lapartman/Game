@@ -66,13 +66,13 @@ public class EnemyMovementRanged : Movement
         if (player.transform.position.x < body.transform.position.x)
         {
             spriteRenderer.flipX = true;
-            attackRanged.SetSlashPosition(false);
+            attackRanged.SetSlashPosition(true);
             IsCharacterFlipped = false;
         }
         else if (player.transform.position.x > body.transform.position.x)
         {
             spriteRenderer.flipX = false;
-            attackRanged.SetSlashPosition(true);
+            attackRanged.SetSlashPosition(false);
             IsCharacterFlipped = true;
         }
     }
