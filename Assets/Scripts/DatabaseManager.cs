@@ -75,8 +75,7 @@ public class DatabaseManager : MonoBehaviour
         for (int i = 0; i < highScores.Count; i++)
         {
             GameObject scoreInstance = Instantiate(scorePrefab);
-            HighScore score = highScores[i];
-            scoreInstance.GetComponent<HighScoreDisplay>().SetScore($"#{(i + 1).ToString()}", score.Name, score.Score.ToString());
+            scoreInstance.GetComponent<HighScoreDisplay>().SetScore($"#{i + 1}", highScores[i].Name, highScores[i].Score.ToString());
             scoreInstance.transform.SetParent(scoreParent);
             scoreInstance.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         }

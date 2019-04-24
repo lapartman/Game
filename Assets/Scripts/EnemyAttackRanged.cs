@@ -21,6 +21,7 @@ public class EnemyAttackRanged : Attack
     {
         if (health.IsDead()) { return; }
         Slash();
+        Debug.Log(Mathf.Abs(transform.position.y - player.transform.position.y));
     }
 
     protected override void Slash()
@@ -42,7 +43,7 @@ public class EnemyAttackRanged : Attack
 
     protected override bool SlashCondition()
     {
-        return attackTimer <= 0 && player.IsCharacterTouchingGround() && enemyMovement.IsPlayerInSpecifiedRange(attackRange) && !player.GetComponent<Health>().IsDead();
+        return attackTimer <= 0 && player.IsCharacterTouchingGround() && enemyMovement.IsPlayerInSpecifiedRange(attackRange) && !player.GetComponent<Health>().IsDead() && Mathf.Abs(transform.position.y - player.transform.position.y) < 1.1f;
     }
 
     public override void SetSlashPosition(bool facingRight)

@@ -6,7 +6,6 @@ public class EnemyMovementRanged : Movement
 {
     private PlayerMovement player;
     private CapsuleCollider2D characterCollider;
-    private Vector2 distance;
     private GameManager gameManager;
     private EnemyAttackRanged attackRanged;
 
@@ -113,7 +112,7 @@ public class EnemyMovementRanged : Movement
 
     private bool AllowJump()
     {
-        distance = transform.position - player.transform.position;
+        Vector2 distance = transform.position - player.transform.position;
         if (Mathf.Abs(distance.y) > 0.1f)
         {
             return true;

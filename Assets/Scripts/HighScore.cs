@@ -6,8 +6,8 @@ using System.Linq;
 
 public class HighScore
 {
-    public string Name { get; set; }
     public int Id { get; set; }
+    public string Name { get; set; }
     public int Score { get; set; }
 
     public HighScore(int id, string name, int score)
