@@ -6,8 +6,8 @@ public class EnemyMovementRanged : Movement
 {
     private PlayerMovement player;
     private CapsuleCollider2D characterCollider;
-    private GameManager gameManager;
     private EnemyAttackRanged attackRanged;
+    private GameManager gameManager;
 
     [SerializeField] float playerDetectionRange;
     [SerializeField] int abilityValue;
@@ -25,21 +25,31 @@ public class EnemyMovementRanged : Movement
         characterCollider = GetComponent<CapsuleCollider2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         attackRanged = GetComponent<EnemyAttackRanged>();
-        gameManager = FindObjectOfType<GameManager>();
         player = FindObjectOfType<PlayerMovement>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
     {
-        IsCharacterTouchingGround();
         if (health.IsDead())
         {
-            StartCoroutine(TriggerDeath());
+            TriggerDeath();
             return;
         }
+        IsCharacterTouchingGround();
         Move();
         Flip();
         Jump();
+    }
+
+    private void OnDestroy()
+    {
+        if (health.IsDead())
+        {
+            gameManager.AddAbilityPoints(abilityValue);
+            gameManager.AddToTotalScore(scoreValue);
+            FindObjectOfType<ScoreDisplay>().DisplayPoints();
+        }
     }
 
     protected override void Move()
@@ -76,16 +86,12 @@ public class EnemyMovementRanged : Movement
         }
     }
 
-    protected override IEnumerator TriggerDeath()
+    protected override void TriggerDeath()
     {
         animator.SetTrigger("death");
         body.bodyType = RigidbodyType2D.Static;
         Destroy(characterCollider);
         Destroy(gameObject, deathDelay);
-        yield return new WaitForSeconds(deathDelay - 0.02f);
-        gameManager.AddAbilityPoints(abilityValue);
-        gameManager.AddToTotalScore(scoreValue);
-        FindObjectOfType<ScoreDisplay>().DisplayPoints();
     }
 
     protected override void Jump()

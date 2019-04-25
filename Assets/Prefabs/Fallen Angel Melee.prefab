@@ -46,8 +46,8 @@ GameObject:
   - component: {fileID: 4089325859786596672}
   - component: {fileID: 2093769450}
   m_Layer: 10
-  m_Name: Fallen Angel
-  m_TagString: Untagged
+  m_Name: Fallen Angel Melee
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1531,6 +1531,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1475895233764228293, guid: 0ce187c15bbb7ac43a80ee8c350ca582,
+        type: 3}
+      propertyPath: health
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ce187c15bbb7ac43a80ee8c350ca582, type: 3}
 --- !u!1001 &2341414066025860471
@@ -1899,6 +1904,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fallen Angel Ranged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8715877736131718984, guid: 472d6a57ca9e8904290d106e8bd9488d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8715877736131718963, guid: 472d6a57ca9e8904290d106e8bd9488d,
         type: 3}

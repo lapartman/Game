@@ -3,6 +3,12 @@
 public class Health : MonoBehaviour
 {
     [SerializeField] int health;
+    private GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
 
     public void DealDamage(int damage)
     {

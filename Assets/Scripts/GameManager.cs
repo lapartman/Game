@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,11 +12,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Singleton();
-    }
-
-    private void Update()
-    {
-        Debug.Log(PlayerName);
     }
 
     private void Singleton()

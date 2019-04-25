@@ -25,7 +25,7 @@ public class PlayerMovement : Movement
     {
         if (health.IsDead())
         {
-            StartCoroutine(TriggerDeath());
+            TriggerDeath();
             return;
         }
         Flip();
@@ -80,9 +80,8 @@ public class PlayerMovement : Movement
         }
     }
 
-    protected override IEnumerator TriggerDeath()
+    protected override void TriggerDeath()
     {
-        yield return new WaitForSeconds(0f);
         animator.SetTrigger("death");
         body.velocity = new Vector2(0f, 0f);
     }

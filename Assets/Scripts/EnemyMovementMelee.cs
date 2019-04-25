@@ -29,15 +29,25 @@ public class EnemyMovementMelee : Movement
 
     private void Update()
     {
-        IsCharacterTouchingGround();
         if (health.IsDead())
         {
-            StartCoroutine(TriggerDeath());
+            TriggerDeath();
             return;
         }
+        IsCharacterTouchingGround();
         Move();
         Flip();
         Jump();
+    }
+
+    private void OnDestroy()
+    {
+        if (health.IsDead())
+        {
+            gameManager.AddAbilityPoints(abilityValue);
+            gameManager.AddToTotalScore(scoreValue);
+            FindObjectOfType<ScoreDisplay>().DisplayPoints();
+        }
     }
 
     protected override void Move()
@@ -92,16 +102,12 @@ public class EnemyMovementMelee : Movement
         }
     }
 
-    protected override IEnumerator TriggerDeath()
+    protected override void TriggerDeath()
     {
         animator.SetTrigger("death");
         body.bodyType = RigidbodyType2D.Static;
         Destroy(characterCollider);
         Destroy(gameObject, deathDelay);
-        yield return new WaitForSeconds(deathDelay - 0.02f);
-        gameManager.AddAbilityPoints(abilityValue);
-        gameManager.AddToTotalScore(scoreValue);
-        FindObjectOfType<ScoreDisplay>().DisplayPoints();
     }
 
     public bool IsPlayerInSpecifiedRange(float rangeType)

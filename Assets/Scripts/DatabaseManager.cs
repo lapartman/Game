@@ -16,7 +16,17 @@ public class DatabaseManager : MonoBehaviour
     private void Start()
     {
         connectionString = $"URI=file:{Application.dataPath}/Database/highscore.sqlite";
-        ShowScores();
+
+        if (scorePrefab != null && scoreParent != null)
+        {
+            ShowScores();
+        }
+
+        if (FindObjectOfType<GameManager>() && FindObjectOfType<GameManager>().TotalScore != 0)
+        {
+            GameManager gameManager = FindObjectOfType<GameManager>();
+            InsertScore(gameManager.PlayerName, gameManager.TotalScore);
+        }
     }
 
     private void GetScores()
