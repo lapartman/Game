@@ -22,4 +22,19 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene(currentScene + 1);
     }
+
+    public void LoadHighScoreScene()
+    {
+        SceneManager.LoadScene("HighScores");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
 }
