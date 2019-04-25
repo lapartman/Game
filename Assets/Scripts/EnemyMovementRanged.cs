@@ -113,7 +113,7 @@ public class EnemyMovementRanged : Movement
     private bool AllowJump()
     {
         Vector2 distance = transform.position - player.transform.position;
-        if (Mathf.Abs(distance.y) > 0.1f)
+        if (Mathf.Abs(distance.y) > 1.1f)
         {
             return true;
         }

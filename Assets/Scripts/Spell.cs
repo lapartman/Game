@@ -13,7 +13,7 @@ public class Spell : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject, 1.5f);
+            Destroy(gameObject, 2f);
         }
     }
 }

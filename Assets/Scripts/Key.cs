@@ -3,10 +3,12 @@
 public class Key : MonoBehaviour
 {
     private Rigidbody2D keyBody;
+    private PlayerMovement player;
 
     private void Start()
     {
         keyBody = GetComponent<Rigidbody2D>();
+        player = FindObjectOfType<PlayerMovement>();
     }
 
     private void Update()
@@ -30,6 +32,9 @@ public class Key : MonoBehaviour
 
     private void OnDestroy()
     {
-        FindObjectOfType<PlayerMovement>().playerKeyCount++;
+        if (player != null)
+        {
+            player.playerKeyCount++;
+        }
     }
 }
