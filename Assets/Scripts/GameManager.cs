@@ -24,9 +24,12 @@ public class GameManager : MonoBehaviour
         {
             CurrentScene = SceneManager.GetActiveScene().buildIndex;
         }
-        Debug.Log(CurrentScene);
     }
 
+    private void Start()
+    {
+        
+    }
 
     private void Singleton()
     {

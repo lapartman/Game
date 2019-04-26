@@ -14,6 +14,7 @@ public class DatabaseManager : MonoBehaviour
     private void Start()
     {
         connectionString = $"URI=file:{Application.dataPath}/Database/highscore.sqlite";
+        CreateTables();
 
         if (scorePrefab != null && scoreParent != null)
         {
@@ -24,6 +25,20 @@ public class DatabaseManager : MonoBehaviour
         {
             GameManager gameManager = FindObjectOfType<GameManager>();
             InsertScore(gameManager.PlayerName, gameManager.TotalScore);
+        }
+    }
+
+    private void CreateTables()
+    {
+        string createTablesSql = "CREATE TABLE IF NOT EXISTS player (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR NOT NULL);CREATE TABLE IF NOT EXISTS scores (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, playerid INTEGER NOT NULL REFERENCES player (id) ON DELETE CASCADE ON UPDATE CASCADE, score INTEGER NOT NULL);";
+        using (SqliteConnection connection = new SqliteConnection(connectionString))
+        {
+            connection.Open();
+            using (SqliteCommand command = new SqliteCommand(createTablesSql, connection))
+            {
+                command.ExecuteNonQuery();
+            }
+            connection.Close();
         }
     }
 

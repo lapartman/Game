@@ -9,6 +9,7 @@ public class Spell : MonoBehaviour
         if (otherCollider.GetComponent<PlayerMovement>())
         {
             otherCollider.GetComponent<Health>().DealDamage(spellDamage);
+            FindObjectOfType<HealthTextDisplay>().DisplayValue();
             Destroy(gameObject);
         }
         else

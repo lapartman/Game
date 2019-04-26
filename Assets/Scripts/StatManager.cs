@@ -3,12 +3,13 @@
 public class StatManager : MonoBehaviour
 {
     private GameManager gameManager;
-    private AbilityDisplay scoreDisplay;
+    private AbilityTextDisplay scoreDisplay;
 
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        scoreDisplay = FindObjectOfType<AbilityDisplay>();
+        scoreDisplay = FindObjectOfType<AbilityTextDisplay>();
+        scoreDisplay.DisplayValue();
     }
 
     public void IncreaseHealth()
@@ -17,7 +18,7 @@ public class StatManager : MonoBehaviour
         {
             gameManager.playerHealth += 1;
             gameManager.RemoveAbilityPoints(1);
-            scoreDisplay.DisplayPoints();
+            scoreDisplay.DisplayValue();
         }
     }
 
@@ -27,7 +28,7 @@ public class StatManager : MonoBehaviour
         {
             gameManager.playerDamage += 1;
             gameManager.RemoveAbilityPoints(1);
-            scoreDisplay.DisplayPoints();
+            scoreDisplay.DisplayValue();
         }
     }
 }

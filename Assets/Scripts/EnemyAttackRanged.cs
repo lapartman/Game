@@ -21,7 +21,6 @@ public class EnemyAttackRanged : Attack
     {
         if (health.IsDead()) { return; }
         Slash();
-        Debug.Log(Mathf.Abs(transform.position.y - player.transform.position.y));
     }
 
     protected override void Slash()

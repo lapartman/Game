@@ -2,7 +2,7 @@
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] int health;
+    public int health;
     private GameManager gameManager;
 
     private void Start()
@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
         return health <= 0;
     }
 
-    public void SetStartingHealth(int startingHealth)
+    public void SetHealth(int startingHealth)
     {
         health = startingHealth;
     }

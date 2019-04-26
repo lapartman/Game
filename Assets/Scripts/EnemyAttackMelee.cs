@@ -35,7 +35,7 @@ public class EnemyAttackMelee : Attack
             if (enemyCollider.GetComponent<PlayerMovement>())
             {
                 enemyCollider.GetComponent<Health>().DealDamage(damage);
-                enemyCollider.GetComponent<Animator>().SetTrigger("hurt");
+                FindObjectOfType<HealthTextDisplay>().DisplayValue();
             }
         }
         else

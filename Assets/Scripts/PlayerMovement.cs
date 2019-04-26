@@ -20,11 +20,17 @@ public class PlayerMovement : Movement
         health = GetComponent<Health>();
         gameManager = FindObjectOfType<GameManager>();
         feetCollider = GetComponent<BoxCollider2D>();
-        health.SetStartingHealth(gameManager.playerHealth);
+        health.SetHealth(gameManager.playerHealth);
+        FindObjectOfType<HealthTextDisplay>().DisplayValue();
+        FindObjectOfType<LivesTextDisplay>().DisplayValue();
     }
 
     private void Update()
     {
+        if (body.IsTouchingLayers(LayerMask.GetMask("Trap")))
+        {
+            health.SetHealth(0);
+        }
         if (health.IsDead())
         {
             StartCoroutine(TriggerDeath());

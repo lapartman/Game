@@ -9,7 +9,6 @@ public class EnemyMovementMelee : Movement
     private EnemyAttackMelee attackMelee;
 
     [SerializeField] float playerDetectionRange;
-    [SerializeField] int abilityValue;
     [SerializeField] float jumpTimer;
     [SerializeField] int scoreValue;
 
@@ -29,7 +28,7 @@ public class EnemyMovementMelee : Movement
 
     private void Update()
     {
-        if (health.IsDead())
+        if (health.IsDead() || body.IsTouchingLayers(LayerMask.GetMask("Trap")))
         {
             StartCoroutine(TriggerDeath());
             return;
@@ -44,9 +43,8 @@ public class EnemyMovementMelee : Movement
     {
         if (health.IsDead())
         {
-            gameManager.AddAbilityPoints(abilityValue);
             gameManager.AddToTotalScore(scoreValue);
-            FindObjectOfType<ScoreDisplay>().DisplayPoints();
+            FindObjectOfType<ScoreTextDisplay>().DisplayValue();
         }
     }
 
@@ -119,7 +117,7 @@ public class EnemyMovementMelee : Movement
     private float JumpDirection()
     {
         bool isPlayerLeft = player.transform.position.x > body.transform.position.x;
-        float horizontalJumpForce = isPlayerLeft ? 5f : -5f;
+        float horizontalJumpForce = isPlayerLeft ? 7f : -7f;
         return horizontalJumpForce;
     }
 
