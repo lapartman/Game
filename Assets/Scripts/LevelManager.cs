@@ -3,24 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    int currentScene;
-
-    void Start()
-    {
-        currentScene = SceneManager.GetActiveScene().buildIndex;
-    }
-
     private void OnTriggerEnter2D(Collider2D otherCollider)
     {
         if (otherCollider.GetComponent<PlayerMovement>())
         {
-            LoadNextScene();
+            LoadCustomizationScreen();
         }
     }
 
     public void LoadNextScene()
     {
-        SceneManager.LoadScene(currentScene + 1);
+        SceneManager.LoadScene(FindObjectOfType<GameManager>().CurrentScene + 1);
     }
 
     public void LoadHighScoreScene()
@@ -40,11 +33,16 @@ public class LevelManager : MonoBehaviour
 
     public void LoadCurrentLevel()
     {
-        SceneManager.LoadScene(currentScene);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void LoadLoseScreen()
     {
         SceneManager.LoadScene("LoseScreen");
+    }
+
+    private void LoadCustomizationScreen()
+    {
+        SceneManager.LoadScene("Customization");
     }
 }

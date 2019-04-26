@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,9 +11,24 @@ public class GameManager : MonoBehaviour
     public int playerHealth = 10;
     public int playerDamage = 1;
 
+    public int CurrentScene { get; set; }
+
     private void Awake()
     {
         Singleton();
+    }
+
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name.Contains("Level"))
+        {
+            CurrentScene = SceneManager.GetActiveScene().buildIndex;
+        }
+    }
+
+    private void Update()
+    {
+        Debug.Log(CurrentScene);
     }
 
     private void Singleton()

@@ -14,7 +14,6 @@ public class DatabaseManager : MonoBehaviour
     private void Start()
     {
         connectionString = $"URI=file:{Application.dataPath}/Database/highscore.sqlite";
-        InsertScore("gdggg", 111);
 
         if (scorePrefab != null && scoreParent != null)
         {
