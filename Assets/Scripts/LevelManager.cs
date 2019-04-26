@@ -37,4 +37,14 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene("Main Menu");
     }
+
+    public void LoadCurrentLevel()
+    {
+        SceneManager.LoadScene(currentScene);
+    }
+
+    public void LoadLoseScreen()
+    {
+        SceneManager.LoadScene("LoseScreen");
+    }
 }

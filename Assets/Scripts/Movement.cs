@@ -14,7 +14,7 @@ public abstract class Movement : MonoBehaviour
 
     protected abstract void Move();
     protected abstract void Flip();
-    protected abstract void TriggerDeath();
+    protected abstract IEnumerator TriggerDeath();
 
     protected abstract void Jump();
     public abstract bool IsCharacterTouchingGround();

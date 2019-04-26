@@ -9,6 +9,7 @@ public class PlayerMovement : Movement
     public int playerKeyCount = 0;
 
     private GameManager gameManager;
+    private BoxCollider2D feetCollider;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class PlayerMovement : Movement
         attack = GetComponent<PlayerAttack>();
         health = GetComponent<Health>();
         gameManager = FindObjectOfType<GameManager>();
+        feetCollider = GetComponent<BoxCollider2D>();
         health.SetStartingHealth(gameManager.playerHealth);
     }
 
@@ -25,7 +27,7 @@ public class PlayerMovement : Movement
     {
         if (health.IsDead())
         {
-            TriggerDeath();
+            StartCoroutine(TriggerDeath());
             return;
         }
         Flip();
@@ -60,7 +62,7 @@ public class PlayerMovement : Movement
 
     public override bool IsCharacterTouchingGround()
     {
-        if (body.IsTouchingLayers(LayerMask.GetMask("Ground")) && body.velocity.y < Mathf.Epsilon)
+        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && body.velocity.y < Mathf.Epsilon)
         {
             jumpCount = 2;
             animator.SetBool("isJumping", false);
@@ -71,7 +73,7 @@ public class PlayerMovement : Movement
 
     protected override void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount > 0 && !feetCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
         {
             jumpCount--;
             Vector2 playerJumpVelocity = new Vector2(0f, jumpForce);
@@ -80,9 +82,27 @@ public class PlayerMovement : Movement
         }
     }
 
-    protected override void TriggerDeath()
+    private void OnDestroy()
+    {
+        if (health.IsDead())
+        {
+            gameManager.playerLives--;
+            if (gameManager.playerLives != 0)
+            {
+                FindObjectOfType<LevelManager>().LoadCurrentLevel();
+            }
+            else
+            {
+                FindObjectOfType<LevelManager>().LoadLoseScreen();
+            }
+        }
+    }
+
+    protected override IEnumerator TriggerDeath()
     {
         animator.SetTrigger("death");
         body.velocity = new Vector2(0f, 0f);
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
     }
 }

@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public int TotalScore { get; private set; }
     public string PlayerName { get; set; }
 
+    public int playerLives = 3;
     public int playerHealth = 10;
     public int playerDamage = 1;
 

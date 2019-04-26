@@ -31,7 +31,7 @@ public class EnemyMovementMelee : Movement
     {
         if (health.IsDead())
         {
-            TriggerDeath();
+            StartCoroutine(TriggerDeath());
             return;
         }
         IsCharacterTouchingGround();
@@ -102,8 +102,9 @@ public class EnemyMovementMelee : Movement
         }
     }
 
-    protected override void TriggerDeath()
+    protected override IEnumerator TriggerDeath()
     {
+        yield return new WaitForSeconds(0f);
         animator.SetTrigger("death");
         body.bodyType = RigidbodyType2D.Static;
         Destroy(characterCollider);

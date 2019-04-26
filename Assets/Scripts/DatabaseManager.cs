@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Data;
 using Mono.Data.Sqlite;
 
 public class DatabaseManager : MonoBehaviour
@@ -16,6 +14,7 @@ public class DatabaseManager : MonoBehaviour
     private void Start()
     {
         connectionString = $"URI=file:{Application.dataPath}/Database/highscore.sqlite";
+        InsertScore("gdggg", 111);
 
         if (scorePrefab != null && scoreParent != null)
         {
@@ -54,10 +53,11 @@ public class DatabaseManager : MonoBehaviour
     private void InsertScore(string name, int score)
     {
         string sqlInsertPlayer = "INSERT INTO player (name) VALUES (:name)";
-        string sqlInsertScore = "INSERT INTO scores(playerid, score) VALUES(:playerid, :score)";
+        string sqlInsertScore = "INSERT INTO scores (playerid, score) VALUES (:playerid, :score)";
         using (SqliteConnection connection = new SqliteConnection(connectionString))
         {
             connection.Open();
+
             using (SqliteCommand command = new SqliteCommand(sqlInsertPlayer, connection))
             {
                 command.Parameters.AddWithValue(":name", name);
