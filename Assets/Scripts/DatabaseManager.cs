@@ -13,7 +13,7 @@ public class DatabaseManager : MonoBehaviour
 
     private void Start()
     {
-        connectionString = $"URI=file:{Application.dataPath}/Database/highscore.sqlite";
+        connectionString = $"URI=file:{Application.dataPath}/highscore.sqlite";
         CreateTables();
 
         if (scorePrefab != null && scoreParent != null)
@@ -36,7 +36,7 @@ public class DatabaseManager : MonoBehaviour
             connection.Open();
             using (SqliteCommand command = new SqliteCommand(createTablesSql, connection))
             {
-                command.ExecuteNonQuery();
+                command.ExecuteScalar();
             }
             connection.Close();
         }

@@ -26,11 +26,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        
-    }
-
     private void Singleton()
     {
         if (FindObjectsOfType<GameManager>().Length > 1)
