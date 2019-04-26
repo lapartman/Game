@@ -7,7 +7,14 @@ public class LevelManager : MonoBehaviour
     {
         if (otherCollider.GetComponent<PlayerMovement>())
         {
-            LoadCustomizationScreen();
+            if (FindObjectOfType<GameManager>().CurrentScene == 3)
+            {
+                SceneManager.LoadScene("WinScreen");
+            }
+            else
+            {
+                LoadCustomizationScreen();
+            }
         }
     }
 

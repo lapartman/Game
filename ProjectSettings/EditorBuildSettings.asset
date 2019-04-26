@@ -18,11 +18,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 3.unity
     guid: 4949ab04946c23345ba9bd324c841613
   - enabled: 1
-    path: Assets/Scenes/HighScores.unity
-    guid: 6ce954c06a130d249b0e32cc89cc4703
-  - enabled: 1
     path: Assets/Scenes/WinScreen.unity
     guid: e40bea2928271e348bf7255481ea61f0
+  - enabled: 1
+    path: Assets/Scenes/HighScores.unity
+    guid: 6ce954c06a130d249b0e32cc89cc4703
   - enabled: 1
     path: Assets/Scenes/LoseScreen.unity
     guid: cebea2640efa20c48b143035a01e47d8

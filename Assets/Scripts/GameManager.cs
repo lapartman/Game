@@ -18,18 +18,15 @@ public class GameManager : MonoBehaviour
         Singleton();
     }
 
-    private void Start()
+    private void Update()
     {
         if (SceneManager.GetActiveScene().name.Contains("Level"))
         {
             CurrentScene = SceneManager.GetActiveScene().buildIndex;
         }
-    }
-
-    private void Update()
-    {
         Debug.Log(CurrentScene);
     }
+
 
     private void Singleton()
     {
