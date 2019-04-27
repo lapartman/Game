@@ -6,7 +6,6 @@ public class EnemyAttackRanged : Attack
     public float attackRange;
 
     [SerializeField] GameObject fireSpell;
-    [SerializeField] float spellSpeed;
     GameObject spellReference;
 
     private void Start()
@@ -57,12 +56,12 @@ public class EnemyAttackRanged : Attack
         switch (enemyMovement.IsCharacterFlipped)
         {
             case true:
-                direction = new Vector2(5f, 0f);
-                spellReference.GetComponent<SpriteRenderer>().flipX = false;
-                break;
-            case false:
                 direction = -new Vector2(5f, 0f);
                 spellReference.GetComponent<SpriteRenderer>().flipX = true;
+                break;
+            case false:
+                direction = new Vector2(5f, 0f);
+                spellReference.GetComponent<SpriteRenderer>().flipX = false;
                 break;
         }
         return direction;

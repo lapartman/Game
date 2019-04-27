@@ -101,7 +101,7 @@ public class DatabaseManager : MonoBehaviour
             GameObject scoreInstance = Instantiate(scorePrefab);
             scoreInstance.GetComponent<HighScoreDisplay>().SetScore($"#{i + 1}", highScores[i].Name, highScores[i].Score.ToString());
             scoreInstance.transform.SetParent(scoreParent);
-            scoreInstance.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            scoreInstance.GetComponent<RectTransform>().localScale = Vector3.one;
         }
     }
 }

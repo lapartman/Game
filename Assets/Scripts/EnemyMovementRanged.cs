@@ -45,7 +45,7 @@ public class EnemyMovementRanged : Movement
         if (health.IsDead())
         {
             gameManager.AddToTotalScore(scoreValue);
-            FindObjectOfType<AbilityTextDisplay>().DisplayValue();
+            FindObjectOfType<ScoreTextDisplay>().DisplayValue();
         }
     }
 
@@ -73,13 +73,13 @@ public class EnemyMovementRanged : Movement
         {
             spriteRenderer.flipX = true;
             attackRanged.SetSlashPosition(true);
-            IsCharacterFlipped = false;
+            IsCharacterFlipped = true;
         }
         else if (player.transform.position.x > body.transform.position.x)
         {
             spriteRenderer.flipX = false;
             attackRanged.SetSlashPosition(false);
-            IsCharacterFlipped = true;
+            IsCharacterFlipped = false;
         }
     }
 
