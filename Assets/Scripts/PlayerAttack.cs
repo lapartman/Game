@@ -5,6 +5,8 @@ public class PlayerAttack : Attack
     private GameManager gameManager;
     [SerializeField] LayerMask enemyMask;
     [SerializeField] float attackRadius;
+    [SerializeField] AudioClip[] noImpactSlashSounds;
+    [SerializeField] AudioClip[] hitSounds;
 
     private void Start()
     {
@@ -12,6 +14,7 @@ public class PlayerAttack : Attack
         player = GetComponent<PlayerMovement>();
         health = GetComponent<Health>();
         gameManager = FindObjectOfType<GameManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -26,9 +29,14 @@ public class PlayerAttack : Attack
             animator.SetTrigger("slash");
             Collider2D enemyCollider = Physics2D.OverlapCircle(slashPosition.position, attackRadius, enemyMask);
             attackTimer = timeBetweenAttacks;
-            if (enemyCollider == null) { return; }
+            if (enemyCollider == null)
+            {
+                audioSource.PlayOneShot(PlayRandomSound(noImpactSlashSounds));
+                return;
+            }
             if (enemyCollider.GetComponent<EnemyMovementMelee>() || enemyCollider.GetComponent<EnemyMovementRanged>())
             {
+                audioSource.PlayOneShot(PlayRandomSound(hitSounds));
                 enemyCollider.GetComponent<Health>().DealDamage(gameManager.playerDamage);
                 enemyCollider.GetComponent<Animator>().SetTrigger("hurt");
             }

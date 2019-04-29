@@ -4,11 +4,15 @@ public class Key : MonoBehaviour
 {
     private Rigidbody2D keyBody;
     private PlayerMovement player;
+    private AudioSource audioSource;
+    [SerializeField] AudioClip keyPickUpSound;
+    bool isPicked = false;
 
     private void Start()
     {
         keyBody = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<PlayerMovement>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -26,7 +30,12 @@ public class Key : MonoBehaviour
     {
         if (keyBody.IsTouchingLayers(LayerMask.GetMask("Player")))
         {
-            Destroy(gameObject);
+            if (!isPicked)
+            {
+                isPicked = true;
+                audioSource.PlayOneShot(keyPickUpSound);
+                Destroy(gameObject, 1f);
+            }
         }
     }
 

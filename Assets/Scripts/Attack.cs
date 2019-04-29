@@ -8,6 +8,7 @@ public abstract class Attack : MonoBehaviour
     protected Animator animator;
     protected PlayerMovement player;
     protected Health health;
+    protected AudioSource audioSource;
     protected float attackTimer;
 
     /// <summary>
@@ -26,4 +27,15 @@ public abstract class Attack : MonoBehaviour
     /// </summary>
     /// <param name="facingRight">A karakter éppen jobbra néz-e.</param>
     public abstract void SetSlashPosition(bool facingRight);
+
+    /// <summary>
+    /// Lejátszik egy AudioClip tömbből egy véletlenszerű hangot, paraméterben átadva.
+    /// </summary>
+    /// <param name="audioClips">AudioClip tömb</param>
+    /// <returns>Visszatér az AudioClip tömbben található véletlen elemmel</returns>
+    protected AudioClip PlayRandomSound(AudioClip[] audioClips)
+    {
+        int randomIndex = Random.Range(0, audioClips.Length);
+        return audioClips[randomIndex];
+    }
 }

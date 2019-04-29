@@ -24,14 +24,25 @@ public class EnemyMovementMelee : Movement
         attackMelee = GetComponent<EnemyAttackMelee>();
         gameManager = FindObjectOfType<GameManager>();
         player = FindObjectOfType<PlayerMovement>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
         //Ha a karakter halott, vagy hozzáért a csapdához, akkor megkezdődik a halált lekezelő metódus, és ettől a ponttól visszatér, hogy az ellenség ne tudjon mozogni.
-        if (health.IsDead() || body.IsTouchingLayers(LayerMask.GetMask("Trap")))
+        if (health.IsDead())
         {
             StartCoroutine(TriggerDeath());
+            return;
+        }
+        if (body.IsTouchingLayers(LayerMask.GetMask("Trap")))
+        {
+            if (!isTrapSoundEffectPlaying)
+            {
+                isTrapSoundEffectPlaying = true;
+                audioSource.PlayOneShot(trapSoundEffect);
+                StartCoroutine(TriggerDeath());
+            }
             return;
         }
         IsCharacterTouchingGround();

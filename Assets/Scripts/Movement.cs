@@ -7,10 +7,13 @@ public abstract class Movement : MonoBehaviour
     protected Animator animator;
     protected SpriteRenderer spriteRenderer;
     protected Health health;
+    protected AudioSource audioSource;
+    protected bool isTrapSoundEffectPlaying = false;
 
     public float runSpeed;
     public float jumpForce;
     public float deathDelay;
+    public AudioClip trapSoundEffect;
 
     protected abstract void Move();
     protected abstract void Flip();

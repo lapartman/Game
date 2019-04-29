@@ -6,6 +6,7 @@ public class EnemyAttackRanged : Attack
     public float attackRange;
 
     [SerializeField] GameObject fireSpell;
+    [SerializeField] AudioClip[] spellSounds;
     GameObject spellReference;
 
     private void Start()
@@ -14,6 +15,7 @@ public class EnemyAttackRanged : Attack
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
         enemyMovement = GetComponent<EnemyMovementRanged>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -33,6 +35,7 @@ public class EnemyAttackRanged : Attack
             animator.SetTrigger("slash");
             attackTimer = timeBetweenAttacks;
             spellReference = Instantiate(fireSpell, slashPosition.position, Quaternion.identity);
+            audioSource.PlayOneShot(PlayRandomSound(spellSounds));
             spellReference.GetComponent<Rigidbody2D>().velocity = FireSpellDirection();
         }
         else

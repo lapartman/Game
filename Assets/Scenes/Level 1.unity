@@ -45216,6 +45216,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Golem
       objectReference: {fileID: 0}
+    - target: {fileID: 6273853, guid: 0ce187c15bbb7ac43a80ee8c350ca582, type: 3}
+      propertyPath: trapSoundEffect
+      value: 
+      objectReference: {fileID: 8300000, guid: baa0264bcf201b542b0d95b8fcccedd8, type: 3}
     - target: {fileID: 2230730198013717731, guid: 0ce187c15bbb7ac43a80ee8c350ca582,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -20,6 +20,7 @@ public class PlayerMovement : Movement
         health = GetComponent<Health>();
         gameManager = FindObjectOfType<GameManager>();
         feetCollider = GetComponent<BoxCollider2D>();
+        audioSource = GetComponent<AudioSource>();
         health.SetHealth(gameManager.playerHealth);
         FindObjectOfType<HealthTextDisplay>().DisplayValue();
         FindObjectOfType<LivesTextDisplay>().DisplayValue();
@@ -30,6 +31,11 @@ public class PlayerMovement : Movement
         if (body.IsTouchingLayers(LayerMask.GetMask("Trap")))
         {
             health.SetHealth(0);
+            if (!isTrapSoundEffectPlaying)
+            {
+                isTrapSoundEffectPlaying = true;
+                audioSource.PlayOneShot(trapSoundEffect);
+            }
         }
         if (health.IsDead())
         {

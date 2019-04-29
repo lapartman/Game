@@ -25,14 +25,25 @@ public class EnemyMovementRanged : Movement
         attackRanged = GetComponent<EnemyAttackRanged>();
         player = FindObjectOfType<PlayerMovement>();
         gameManager = FindObjectOfType<GameManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
         //Megegyezik a közelharcoséval.
-        if (health.IsDead() || body.IsTouchingLayers(LayerMask.GetMask("Trap")))
+        if (health.IsDead())
         {
             StartCoroutine(TriggerDeath());
+            return;
+        }
+        if (body.IsTouchingLayers(LayerMask.GetMask("Trap")))
+        {
+            if (!isTrapSoundEffectPlaying)
+            {
+                isTrapSoundEffectPlaying = true;
+                audioSource.PlayOneShot(trapSoundEffect);
+                StartCoroutine(TriggerDeath());
+            }
             return;
         }
         IsCharacterTouchingGround();

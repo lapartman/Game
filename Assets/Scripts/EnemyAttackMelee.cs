@@ -8,6 +8,8 @@ public class EnemyAttackMelee : Attack
     [SerializeField] LayerMask enemyMask;
     [SerializeField] int damage;
     [SerializeField] float attackRadius;
+    [SerializeField] AudioClip[] noImpactSlashSounds;
+    [SerializeField] AudioClip[] hitSounds;
 
     private void Start()
     {
@@ -15,6 +17,7 @@ public class EnemyAttackMelee : Attack
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
         enemyMovement = GetComponent<EnemyMovementMelee>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -34,9 +37,14 @@ public class EnemyAttackMelee : Attack
             animator.SetTrigger("slash");
             Collider2D enemyCollider = Physics2D.OverlapCircle(slashPosition.position, attackRadius, enemyMask);
             attackTimer = timeBetweenAttacks;
-            if (enemyCollider == null) { return; }
+            if (enemyCollider == null)
+            {
+                audioSource.PlayOneShot(PlayRandomSound(noImpactSlashSounds));
+                return;
+            }
             if (enemyCollider.GetComponent<PlayerMovement>())
             {
+                audioSource.PlayOneShot(PlayRandomSound(hitSounds));
                 enemyCollider.GetComponent<Health>().DealDamage(damage);
                 FindObjectOfType<HealthTextDisplay>().DisplayValue();
             }
