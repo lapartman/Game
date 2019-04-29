@@ -20,12 +20,16 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        //Csak akkor változtatja a jelenlegi jelenet indexének számát, ha a pálya neve tartalmazza a Level string-et.
         if (SceneManager.GetActiveScene().name.Contains("Level"))
         {
             CurrentScene = SceneManager.GetActiveScene().buildIndex;
         }
     }
 
+    /// <summary>
+    /// Megsemmisíti az újonnan legenerált GameManagereket, biztosítja, hogy csak egy GameManager létezzen.
+    /// </summary>
     private void Singleton()
     {
         if (FindObjectsOfType<GameManager>().Length > 1)
@@ -38,21 +42,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Megadja, hogy van-e elég képességpontja a játékosnak ahhoz, hogy rányomjon a gombra.
+    /// </summary>
+    /// <returns>Igazzal tér vissza, ha van legalább 1 pontja.</returns>
     public bool HaveEnoughAbilityPoints()
     {
         return AbilityPoints > 0;
     }
 
+    /// <summary>
+    /// Hozzáad a képességpontokhoz paraméterben átadott mennyiséget.
+    /// </summary>
+    /// <param name="points">Hozzáadott pont mennyisége.</param>
     public void AddAbilityPoints(int points)
     {
         AbilityPoints += points;
     }
 
+    /// <summary>
+    /// Levesz egy pontot a képességpontok közül paraméterben megadva.
+    /// </summary>
+    /// <param name="points">Levont mennyiség</param>
     public void RemoveAbilityPoints(int points)
     {
         AbilityPoints -= points;
     }
 
+    /// <summary>
+    /// Hozzáad paraméterben megadott mennyiséget az összes pontszámhoz.
+    /// </summary>
+    /// <param name="score">Pontszám mennyisége</param>
     public void AddToTotalScore(int score)
     {
         TotalScore += score;

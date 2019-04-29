@@ -29,6 +29,7 @@ public class EnemyMovementRanged : Movement
 
     private void Update()
     {
+        //Megegyezik a közelharcoséval.
         if (health.IsDead() || body.IsTouchingLayers(LayerMask.GetMask("Trap")))
         {
             StartCoroutine(TriggerDeath());
@@ -40,6 +41,7 @@ public class EnemyMovementRanged : Movement
         Jump();
     }
 
+    //Megegyezik a közelharcoséval.
     private void OnDestroy()
     {
         if (health.IsDead())
@@ -49,6 +51,7 @@ public class EnemyMovementRanged : Movement
         }
     }
 
+    //Megegyezik a közelharcoséval.
     protected override void Move()
     {
         if (IsPlayerInSpecifiedRange(playerDetectionRange) && !IsPlayerInSpecifiedRange(attackRanged.attackRange))
@@ -62,11 +65,15 @@ public class EnemyMovementRanged : Movement
         }
     }
 
+    //Megegyezik a közelharcoséval.
     public bool IsPlayerInSpecifiedRange(float rangeType)
     {
         return Vector2.Distance(transform.position, player.transform.position) <= rangeType;
     }
 
+    /// <summary>
+    /// Megegyezik a közelharcoséval, azzal a kivétellel, hogy itt egy property-t is átállít igaz vagy hamisra, ennek a tűzcsóva irányának meghatározásában van szerepe.
+    /// </summary>
     protected override void Flip()
     {
         if (player.transform.position.x < body.transform.position.x)
@@ -83,6 +90,7 @@ public class EnemyMovementRanged : Movement
         }
     }
 
+    //Megegyezik a közelharcoséval.
     protected override IEnumerator TriggerDeath()
     {
         yield return new WaitForSeconds(0f);
@@ -92,6 +100,7 @@ public class EnemyMovementRanged : Movement
         Destroy(gameObject, deathDelay);
     }
 
+    //Megegyezik a közelharcoséval.
     protected override void Jump()
     {
         if (AllowJump() && jumpResetTimer <= 0f && IsPlayerInSpecifiedRange(playerDetectionRange) && !IsPlayerInSpecifiedRange(attackRanged.attackRange))
@@ -107,6 +116,7 @@ public class EnemyMovementRanged : Movement
         }
     }
 
+    //Megegyezik a közelharcoséval.
     private float JumpDirection()
     {
         bool isPlayerLeft = player.transform.position.x > body.transform.position.x;
@@ -114,6 +124,7 @@ public class EnemyMovementRanged : Movement
         return horizontalJumpForce;
     }
 
+    //Megegyezik a közelharcoséval.
     private bool AllowJump()
     {
         Vector2 distance = transform.position - player.transform.position;
@@ -124,6 +135,7 @@ public class EnemyMovementRanged : Movement
         return false;
     }
 
+    //Megegyezik a közelharcoséval.
     public override bool IsCharacterTouchingGround()
     {
         if (body.IsTouchingLayers(LayerMask.GetMask("Ground")) && body.velocity.y < Mathf.Epsilon)

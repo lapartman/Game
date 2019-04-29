@@ -23,6 +23,9 @@ public class EnemyAttackMelee : Attack
         Slash();
     }
 
+    /// <summary>
+    /// Megadja az ellenség támadását, ha támadhat, akkor támad, ha nem, akkor meg a támadások közti cooldown ideje csökken, hogy újra támadhasson.
+    /// </summary>
     protected override void Slash()
     {
         if (SlashCondition())
@@ -45,11 +48,19 @@ public class EnemyAttackMelee : Attack
         }
     }
 
+    /// <summary>
+    /// Megadja a támadás feltételeit, és ha mindegyik teljesül, az ellenség támadhat.
+    /// </summary>
+    /// <returns>Ha teljesülnek a feltételek, akkor támadhat</returns>
     protected override bool SlashCondition()
     {
         return attackTimer <= 0 && player.IsCharacterTouchingGround() && enemyMovement.IsPlayerInSpecifiedRange(attackRange) && !player.GetComponent<Health>().IsDead();
     }
 
+    /// <summary>
+    /// Megadja, hogy jobbra néz-e a karakter. Ha nem, akkor a támadás pozícióját átrakja a karakter másik oldalára.
+    /// </summary>
+    /// <param name="facingRight">A karakter jobbra néz-e</param>
     public override void SetSlashPosition(bool facingRight)
     {
         float offset = facingRight ? -1f : 1f;

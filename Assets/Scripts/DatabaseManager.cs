@@ -10,7 +10,8 @@ public class DatabaseManager : MonoBehaviour
 
     [SerializeField] GameObject scorePrefab;
     [SerializeField] Transform scoreParent;
-
+    
+    //Beállítja a csatlakozási stringet, megadja az útvonalát, ha az adatbázis szerializált mezői nem üresek, vagyis a HighScores jeleneten van a játék, akkor megmutatja a pontjait.
     private void Start()
     {
         connectionString = $"URI=file:{Application.dataPath}/highscore.sqlite";
@@ -28,6 +29,9 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Ha nem létezne az adatbázis, akkor létrehozza.
+    /// </summary>
     private void CreateTables()
     {
         string createTablesSql = "CREATE TABLE IF NOT EXISTS player (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR NOT NULL);CREATE TABLE IF NOT EXISTS scores (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, playerid INTEGER NOT NULL REFERENCES player (id) ON DELETE CASCADE ON UPDATE CASCADE, score INTEGER NOT NULL);";
@@ -42,6 +46,9 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Lekérdezi a toplista megjelenítéséhez szükséges adatokat.
+    /// </summary>
     private void GetScores()
     {
         highScores.Clear();
@@ -64,6 +71,11 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Adatbázisba beszúrja a paraméter adatait.
+    /// </summary>
+    /// <param name="name">Jtáékos neve.</param>
+    /// <param name="score">Játékos pontszáma.</param>
     private void InsertScore(string name, int score)
     {
         string sqlInsertPlayer = "INSERT INTO player (name) VALUES (:name)";
@@ -93,6 +105,9 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Legenerálja a lista elemeiből a toplistát.
+    /// </summary>
     private void ShowScores()
     {
         GetScores();

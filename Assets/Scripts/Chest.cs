@@ -17,6 +17,9 @@ public class Chest : MonoBehaviour
         OpenSesame();
     }
 
+    /// <summary>
+    /// Amennyiben teljesülnek a feltételek, a láda kinyílik, és a játékos megkapja a képességpontot.
+    /// </summary>
     private void OpenSesame()
     {
         if (FindObjectOfType<PlayerMovement>().playerKeyCount > 0 && chestBody.IsTouchingLayers(LayerMask.GetMask("Player")) && !chestIsOpen)

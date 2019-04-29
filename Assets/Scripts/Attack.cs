@@ -8,10 +8,22 @@ public abstract class Attack : MonoBehaviour
     protected Animator animator;
     protected PlayerMovement player;
     protected Health health;
-
     protected float attackTimer;
 
+    /// <summary>
+    /// Támadást adja meg.
+    /// </summary>
     protected abstract void Slash();
+
+    /// <summary>
+    /// Megadja a támadás feltételeit.
+    /// </summary>
+    /// <returns>Ha igazzal tér vissza, akkor lehet támadásba lendülni.</returns>
     protected abstract bool SlashCondition();
+
+    /// <summary>
+    /// Beállítja a támadás pozícióját a karaktertől relatívan, és a helyes irányba, attól függően, melyik irányba néz a karakter.
+    /// </summary>
+    /// <param name="facingRight">A karakter éppen jobbra néz-e.</param>
     public abstract void SetSlashPosition(bool facingRight);
 }

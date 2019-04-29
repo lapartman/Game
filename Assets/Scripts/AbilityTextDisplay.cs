@@ -9,6 +9,9 @@ public class AbilityTextDisplay : DisplayOnScreen
         gameManager = FindObjectOfType<GameManager>();
     }
 
+    /// <summary>
+    /// Képességfejlesztő képernyőn kiírja a képességpontok számát.
+    /// </summary>
     public override void DisplayValue()
     {
         textComponent.text = $"Képességpontjaid száma: {gameManager.AbilityPoints}";
