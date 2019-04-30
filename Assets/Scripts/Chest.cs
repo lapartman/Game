@@ -30,7 +30,7 @@ public class Chest : MonoBehaviour
             chestAnimator.SetTrigger("openChest");
             audioSource.PlayOneShot(openSound);
             chestIsOpen = true;
-            FindObjectOfType<GameManager>().AddAbilityPoints(1);
+            FindObjectOfType<GameManager>().AbilityPoints += 1;
             FindObjectOfType<PlayerMovement>().playerKeyCount--;
         }
     }

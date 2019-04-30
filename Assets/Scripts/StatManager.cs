@@ -17,7 +17,7 @@ public class StatManager : MonoBehaviour
         if (gameManager.HaveEnoughAbilityPoints())
         {
             gameManager.playerHealth += 1;
-            gameManager.RemoveAbilityPoints(1);
+            gameManager.AbilityPoints -= 1;
             scoreDisplay.DisplayValue();
         }
     }
@@ -27,7 +27,7 @@ public class StatManager : MonoBehaviour
         if (gameManager.HaveEnoughAbilityPoints())
         {
             gameManager.playerDamage += 1;
-            gameManager.RemoveAbilityPoints(1);
+            gameManager.AbilityPoints -= 1;
             scoreDisplay.DisplayValue();
         }
     }

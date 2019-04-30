@@ -33,6 +33,7 @@ public class Key : MonoBehaviour
             if (!isPicked)
             {
                 isPicked = true;
+                Destroy(GetComponent<SpriteRenderer>());
                 audioSource.PlayOneShot(keyPickUpSound);
                 Destroy(gameObject, 1f);
             }

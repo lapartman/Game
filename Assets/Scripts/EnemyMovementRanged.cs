@@ -57,7 +57,7 @@ public class EnemyMovementRanged : Movement
     {
         if (health.IsDead())
         {
-            gameManager.AddToTotalScore(scoreValue);
+            gameManager.TotalScore += scoreValue;
             FindObjectOfType<ScoreTextDisplay>().DisplayValue();
         }
     }

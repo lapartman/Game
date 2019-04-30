@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int AbilityPoints { get; private set; }
-    public int TotalScore { get; private set; }
+    public int AbilityPoints { get; set; }
+    public int TotalScore { get; set; }
     public string PlayerName { get; set; }
 
     public int playerLives = 3;
     public int playerHealth = 10;
     public int playerDamage = 1;
-
     public int CurrentScene { get; set; }
+    [SerializeField] GameObject quitPrompt;
 
     private void Awake()
     {
@@ -20,10 +21,23 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        ShowExitPrompt();
         //Csak akkor változtatja a jelenlegi jelenet indexének számát, ha a pálya neve tartalmazza a Level string-et.
         if (SceneManager.GetActiveScene().name.Contains("Level"))
         {
             CurrentScene = SceneManager.GetActiveScene().buildIndex;
+        }
+    }
+
+    /// <summary>
+    /// Ha a játékos megnyomja a ESC gombot, és az egyik játékpályán, vagy a képességfejlesztési képernyőn van, akkor megjelenik a kilépési ablak.
+    /// </summary>
+    private void ShowExitPrompt()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape) && (SceneManager.GetActiveScene().name.Contains("Level") || SceneManager.GetActiveScene().name == "Customization"))
+        {
+            quitPrompt.SetActive(true);
+            Time.timeScale = 0f;
         }
     }
 
@@ -49,32 +63,5 @@ public class GameManager : MonoBehaviour
     public bool HaveEnoughAbilityPoints()
     {
         return AbilityPoints > 0;
-    }
-
-    /// <summary>
-    /// Hozzáad a képességpontokhoz paraméterben átadott mennyiséget.
-    /// </summary>
-    /// <param name="points">Hozzáadott pont mennyisége.</param>
-    public void AddAbilityPoints(int points)
-    {
-        AbilityPoints += points;
-    }
-
-    /// <summary>
-    /// Levesz egy pontot a képességpontok közül paraméterben megadva.
-    /// </summary>
-    /// <param name="points">Levont mennyiség</param>
-    public void RemoveAbilityPoints(int points)
-    {
-        AbilityPoints -= points;
-    }
-
-    /// <summary>
-    /// Hozzáad paraméterben megadott mennyiséget az összes pontszámhoz.
-    /// </summary>
-    /// <param name="score">Pontszám mennyisége</param>
-    public void AddToTotalScore(int score)
-    {
-        TotalScore += score;
     }
 }
