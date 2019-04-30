@@ -16,7 +16,7 @@ public class ExitPrompt : MonoBehaviour
     }
 
     /// <summary>
-    /// Kilépési ablak "Nem gombja".
+    /// Kilépési ablak "Nem" gombja.
     /// </summary>
     public void NoButton()
     {

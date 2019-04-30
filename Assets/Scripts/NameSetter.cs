@@ -11,9 +11,12 @@ public class NameSetter : MonoBehaviour
         startButton.enabled = false;
     }
 
+    /// <summary>
+    /// Játékos nevének a beállítása, ha az input mező hosszabb mint 0, akkor el lehet kezdeni a játékot.
+    /// </summary>
     public void SetPlayerName()
     {
-        if (inputField.text.Length>0)
+        if (inputField.text.Length > 0)
         {
             FindObjectOfType<GameManager>().PlayerName = inputField.text;
             startButton.enabled = true;

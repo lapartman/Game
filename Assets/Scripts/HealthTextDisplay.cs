@@ -9,6 +9,9 @@ public class HealthTextDisplay : DisplayOnScreen
         DisplayValue();
     }
 
+    /// <summary>
+    /// Életpontok kiírása a képernyőre
+    /// </summary>
     public override void DisplayValue()
     {
         if (textComponent != null)

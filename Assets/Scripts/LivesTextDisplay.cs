@@ -9,6 +9,9 @@ public class LivesTextDisplay : DisplayOnScreen
         DisplayValue();
     }
 
+    /// <summary>
+    /// Kiírja a játékos életét a képernyőre.
+    /// </summary>
     public override void DisplayValue()
     {
         if (textComponent != null)

@@ -9,6 +9,9 @@ public class ScoreTextDisplay : DisplayOnScreen
         DisplayValue();
     }
 
+    /// <summary>
+    /// Kiírja a szerzett pontok számát a képernyőre
+    /// </summary>
     public override void DisplayValue()
     {
         textComponent.text = $"Pont: {gameManager.TotalScore.ToString()}";

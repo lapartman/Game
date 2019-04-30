@@ -12,6 +12,9 @@ public class StatManager : MonoBehaviour
         scoreDisplay.DisplayValue();
     }
 
+    /// <summary>
+    /// Megnöveli az játékos életét, frissíti a képernyőn az értéket.
+    /// </summary>
     public void IncreaseHealth()
     {
         if (gameManager.HaveEnoughAbilityPoints())
@@ -22,6 +25,9 @@ public class StatManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Megnöveli a játékos sebzését, frissíti a képernyőn az értéket.
+    /// </summary>
     public void IncreaseDamage()
     {
         if (gameManager.HaveEnoughAbilityPoints())

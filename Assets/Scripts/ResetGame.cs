@@ -13,6 +13,10 @@ public class ResetGame : MonoBehaviour
         StartCoroutine(ResetGameSession());
     }
 
+    /// <summary>
+    /// Újraindítja a játékot.
+    /// </summary>
+    /// <returns>3 másodpercet késlelteti, mielőtt kidob a főmenübe.</returns>
     private IEnumerator ResetGameSession()
     {
         audioSource.PlayOneShot(soundEffect);

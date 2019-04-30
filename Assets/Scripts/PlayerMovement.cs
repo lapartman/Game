@@ -28,6 +28,7 @@ public class PlayerMovement : Movement
 
     private void Update()
     {
+        //Ha hozzáér a csapdához, beállítja a játékos életét 0-ra.
         if (body.IsTouchingLayers(LayerMask.GetMask("Trap")))
         {
             health.SetHealth(0);
@@ -48,6 +49,9 @@ public class PlayerMovement : Movement
         IsCharacterTouchingGround();
     }
 
+    /// <summary>
+    /// Játékos mozgását, és animációnak feltételét kezeli le.
+    /// </summary>
     protected override void Move()
     {
         float horizontalAxis = Input.GetAxis("Horizontal");
@@ -58,6 +62,9 @@ public class PlayerMovement : Movement
         animator.SetBool("isRunning", isPlayerMoving);
     }
 
+    /// <summary>
+    /// Megváltoztatja a karakter irányát, illetve a támadási terület irányát is a másik oldalra, attól függően, merre néz a játékos.
+    /// </summary>
     protected override void Flip()
     {
         if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.RightArrow)))
@@ -72,6 +79,10 @@ public class PlayerMovement : Movement
         }
     }
 
+    /// <summary>
+    /// A karakter a földön tartózkodik-e éppen.
+    /// </summary>
+    /// <returns>Amennyiben igaz, kikapcsolja az ugrás animációt, és az ugrás lehetőségeinek a számát frissíti 2-re.</returns>
     public override bool IsCharacterTouchingGround()
     {
         if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && body.velocity.y < Mathf.Epsilon)
@@ -82,7 +93,10 @@ public class PlayerMovement : Movement
         }
         return false;
     }
-
+    
+    /// <summary>
+    /// Játékos ugrását adja meg, csökkenti az ugráslehetőségek számát.
+    /// </summary>
     protected override void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount > 0 && !feetCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
@@ -93,7 +107,10 @@ public class PlayerMovement : Movement
             animator.SetBool("isJumping", true);
         }
     }
-
+    
+    /// <summary>
+    /// Játékos életpontjainak elfogytakor csökken az életének a száma, ha a maradandó életeinek száma nem egyenlő nullával, akkor újratölti a jelenlegi pályát, ha elérte a 0-át, akkor betölti a vesztes jelenetet. 
+    /// </summary>
     private void OnDestroy()
     {
         if (health.IsDead())
@@ -110,6 +127,10 @@ public class PlayerMovement : Movement
         }
     }
 
+    /// <summary>
+    /// Lekezeli a játékos halálát, megsemmisíti a játékost. 
+    /// </summary>
+    /// <returns>Késleltetés mértéke</returns>
     protected override IEnumerator TriggerDeath()
     {
         animator.SetTrigger("death");

@@ -21,11 +21,17 @@ public class Key : MonoBehaviour
         SpinKey();
     }
 
+    /// <summary>
+    /// Kulcs forgatása.
+    /// </summary>
     private void SpinKey()
     {
         transform.Rotate(0f, 180f * 0.5f * Time.deltaTime, 0f);
     }
 
+    /// <summary>
+    /// Vizsgálja, hogy a játékos hozzáér-e a kulcshoz, ha igen, akkor elpusztítja az objektumot, és növeli a játékos kulcsainak számát.
+    /// </summary>
     private void PlayerHasTouchedKey()
     {
         if (keyBody.IsTouchingLayers(LayerMask.GetMask("Player")))
