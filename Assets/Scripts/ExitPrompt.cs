@@ -10,10 +10,9 @@ public class ExitPrompt : MonoBehaviour
     /// </summary>
     public void YesButton()
     {
-        FindObjectOfType<GameManager>().TotalScore = 0;
         GameObject.Find("Quit Prompt").SetActive(false);
+        Destroy(GameObject.Find("GameManager"));
         SceneManager.LoadScene("Main Menu");
-        Destroy(FindObjectOfType<GameManager>());
     }
 
     /// <summary>
