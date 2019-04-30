@@ -111,6 +111,7 @@ MonoBehaviour:
   runSpeed: 8
   jumpForce: 20
   deathDelay: 1.5
+  trapSoundEffect: {fileID: 8300000, guid: baa0264bcf201b542b0d95b8fcccedd8, type: 3}
   playerKeyCount: 0
 --- !u!114 &4426603269644183848
 MonoBehaviour:
